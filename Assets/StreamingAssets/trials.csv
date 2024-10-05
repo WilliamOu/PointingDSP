@@ -1,0 +1,21 @@
+Level,Starting,Target,StartingX,StartingY,StartingZ,TargetX,TargetY,TargetZ,StartingAngleHorizontal,StartingAngleVertical,TrueAngleHorizontal,TrueAngleVertical
+dsp1_02,Well,Picnic Table,15,0,14,-10,0,-6.25,0,0,230.9925,0
+dsp1_03,Chair,Piano,25,0,5,-20.75,0,10,270,0,276.2371,0
+dsp1_04,Chair,Trash Can,25,0,5,-15,0,24.1,270,0,295.5245,0
+dsp1_05,Mailbox,Bookshelf,25,0,-20,-7,0,10,270,0,313.1524,0
+dsp1_06,Mailbox,Harp,25,0,-20,0.8,0,10,270,0,321.108,0
+dsp1_07,Telescope,Trash Can,5,0,-24,-15,0,24.1,0,0,337.4224,0
+dsp1_08,Telescope,Wheelbarrow,5,0,-24,0,0,-3.75,0,0,346.1303,0
+dsp1_09,Plant,Well,-5,0,-20,15,0,18.75,270,0,27.29957,0
+dsp1_10,Plant,Piano,-5,0,-20,-20.75,0,10,270,0,332.3005,0
+dsp1_11,Picnic Table,Wheelbarrow,-10,0,-10.5,0,0,-3.75,0,0,55.98065,0
+dsp1_13,Oven,Chair,-20,0,-19,21.1,0,5,180,0,59.71757,0
+dsp1_14,Oven,Bookshelf,-20,0,-19,-7,0,10,180,0,24.14554,0
+dsp1_16,Piano,Harp,-25,0,10,0.8,0,10,90,0,90,0
+dsp1_17,Trash Can,Picnic Table,-15,0,19,-10,0,-6.25,0,0,168.7992,0
+dsp1_18,Trash Can,Well,-15,0,19,15,0,18.75,0,0,90.47746,0
+dsp1_19,Bookshelf,Plant,-11,0,10,-8.8,0,-20,90,0,175.8058,0
+dsp1_21,Wheelbarrow,Mailbox,0,0,0,21,0,-20,180,0,133.6028,0
+dsp1_22,Wheelbarrow,Oven,0,0,0,-20,0,-23.75,180,0,220.1009,0
+dsp1_23,Harp,Plant,6,0,10,-8.8,0,-20,270,0,206.2587,0
+dsp1_24,Harp,Telescope,6,0,10,5,0,-21.25,270,0,181.8328,0

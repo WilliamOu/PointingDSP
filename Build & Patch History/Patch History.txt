@@ -1,0 +1,350 @@
+=============================
+Patch History For PointingDSP
+=============================
+
+Version 1.3.4.1 - Oct 5, 2024
+- Adjustments to file organization for rebuilding
+- Minor adjustments to code organization and consistency
+
+Version 1.3.4.0 - Oct 3, 2024
+- Added the ability to drag and drop objects in the Map Creation Scene.
+- Fixed a bug where objects in the Default Map would float when using an adjusted height scaling parameter.
+- Fixed a bug displaying an erroneous error message in the Map Creation scene prompting users to disable their VR headset.
+- Fixed a bug in which stitching a texture atlas in Map Creation would not properly save it to its respective map file.
+- Fixed a bug allowing users to scroll to deleted block indices in First Person View while in Map Creation.
+- Fixed a number of issues related to the spawning of VROrienters when using maps other than the Default Map. 
+
+Version 1.3.3.0 - Sep 30, 2024
+- Fixed an issue where VR UI elements did not properly display on top of objects.
+- Adjusted glTFast shader system.
+
+Version 1.3.2.1 - Jun 26, 2024
+- Fixed an issue where glTF model textures would not properly appear in the built version of the game.
+
+Version 1.3.2.0 - Jun 26, 2024
+- Fixed a bug causing desync between an object's hitbox visualizer and its actual hitbox.
+- Fixed a bug causing hitboxes to not render properly when switching between menus.
+- Fixed a bug allowing you to continue typing in a text input field after closing the Bird's Eye View Menu.
+- Fixed a bug where the Learning Stage and Retracing Stage were impossible to complete if you had 0 arrows.
+- Fixed a bug that resulted in faulty model outline rendering.
+- Fixed a bug causing the map creation camera to begin accelerating upwards and forward uncontrollably.
+- Updated the README that comes with new map templates.
+- Updated the Training Stage to match the scale of the player when using custom maps.
+- Updated custom maps to now support map scaling.
+
+Version 1.3.1.0 - Jun 25, 2024
+- Added Learning Stage and Retracing Stage support in custom maps.
+- Added Anti-Aliasing support for the voxel engine.
+- Numerous bug fixes and optimizations.
+- Note: There are still numerous bugs present in this version.
+
+Version 1.3.0.0 - May 28, 2024
+- Added multiple map support.
+- Added custom object support.
+- Added custom texture support.
+- Minor code optimizations and QoL changes.
+
+Version 1.2.20.1 - May 22, 2024
+- Fixed GitHub commit issues.
+
+Version 1.2.20.0 - May 22, 2024
+- Numerous UI QoL changes, including adjusted sprite icons, and the ability to adjust settings and open the persistent file location from the main menu.
+- Added the ability to save voxel changes in the map edit scene.
+
+Version 1.2.19.0 - May 20, 2024
+- Added the ability to build and destroy blocks in the map editing scene.
+- Added logic for saving map edits.
+
+Version 1.2.18.0 - May 20, 2024
+- Fixed a bug in which the player's Y velocity was not being reset, causing the player to permanently accelerate downwards due to gravity.
+
+Version 1.2.17.5 - May 15, 2024
+- Adjusted object hitboxes to better fill their respective alcoves.
+- Fixed a bug in which map object hitboxes were desynced from object prefab hitboxes.
+
+Version 1.2.17.4 - May 15, 2024
+- Fixed a bug in which the Bookshelf and Plant target objects were raising null exceptions.
+
+Version 1.2.17.3 - May 14, 2024
+- Adjusted desktop UI in Pointing and Wayfinding stages prompt to reflect when the VR player is orienting.
+
+Version 1.2.17.2 - May 14, 2024
+- Adjusted desktop UI elements in the Pointing and Wayfinding stages to more accurately reflect the VR UI and to also display the current trial when in VR.
+- Fixed a bug in which the CSV data was being read before being updated.
+- Fixed a bug in which trial objects in alternative maps were not properly registering collisions.
+
+Version 1.2.17.1 - May 14, 2024
+- Adjusted CSV Data to now be automatically recalculated on study start.
+
+Version 1.2.17.0 - May 14, 2024
+- Added the ability to utilize a small pool of custom maps (must be manually edited in the Unity Editor).
+- Fixed a bug causing a texture scaling issue in the Training Stage.
+- Fixed a bug in which player teleportation coordinates did not properly scale with map scale.
+
+Version 1.2.16.2 - May 13, 2024
+- Fixed a bug in which the Learning Stage did not properly respawn arrows when doing more than 1 loop.
+- Adjusted the Pointing and Wayfinding stages to use fades to black in Desktop mode due to user feedback.
+
+Version 1.2.16.1 - Apr 25, 2024
+- Added the ability to change internal settings via a settings.txt file in the persistent file pathway.
+- Adjusted the build settings to properly include the Title Screen, such that it no longer erroneously loads into the Legacy Title Screen.
+- Adjusted Checkpoint spawning methods in the Learning Stage in preparation for custom maze generation.
+
+Version 1.2.16.0 - Apr 23, 2024
+- Fixed a bug in which the Virtualizer player could move at the start of a scene due to not resetting speed.
+- Fixed a bug leaving the Virtualizer player in blackout in the Closing Scene.
+- Fixed a bug in which Nearsight fog was not reset in the Closing Scene.
+- Fixed a bug in the formatting of the Virtualizer data logging.
+- Fixed a bug in the Learning Stage in which checkpoints were falsely triggering collisions.
+- Fixed a bug in which the Desktop UI would not properly render on top of the blackout screen.
+- Adjusted the Preset Screen error message timeout.
+- Adjusted internal settings in the Persistent Data Manager to be more consistent.VR v1.15.2
+- Fixed a bug in which the VR Closing Stage would remain stuck in blackout due to the player singleton.
+
+Version 1.2.15.2 - Apr 23, 2024
+- Fixed a bug in which the VR Closing Stage would remain stuck in blackout due to the player singleton.
+
+Version 1.2.15.1 - Apr 23, 2024
+- Fixed a bug causing the Walk Pillar to not adjust for scale in the Pointing and Wayfinding stages during VRE.
+- Fixed a bug in which the Player Manager did not properly spawn the player as a singleton.
+
+Version 1.2.15.0 - Apr 22, 2024
+- Fixed a bug causing the wayfinding stage to crash towards the end of trials.
+- Fixed a bug causing the pointing substage to blackout while using the Pointsearch option.
+- Fixed a bug resulting in erroneous dot crosshair errors.
+- Fixed a bug affecting shaders on the VR blackout screen.
+- Fixed a bug allowing the VRE player to accidentally trigger arrows in the Learning Phase during VROrientation blackout.
+- Fixed a bug crashing VRE due to null referencing the Virtualizer in attempted teleports.
+- Fixed a bug crashing VRE due to null referencing the Virtualizer in the Retracing Phase.
+- Fixed a bug causing walk pillars to spawn at the incorrect location in the world.
+- Fixed a bug causing minor graphical glitches on miscellaneous assets in the Title and Preset Select Screens.
+- Adjusted the VR player's hitbox to reflect the body rather than the head.
+- Enabled cross platform compatibility for keypresses.
+- Adjusted various internal settings like Vertical Rotation Fix settings, VROrienter settings, and Nearsight settings to be modifiable in the PersistentDataManager.
+- Disabled VR hand tracking to prevent instability and related bugs.
+- Added the option to skip the retracing phase.
+- Added the option to skip the training phase.
+- Minor code organization and optimizations.
+- Minor adjustments to internal settings.
+
+Version 1.2.14.0 - Apr 20, 2024
+- Overhauled player spawn system for optimization and clarity.
+- Adjusted hitboxes for VR look pillars and walk pillars.
+- Fixed a bug in which the Title Screen improperly updated the last used preset, and where the trials completed input was not being properly registered, and a few other minor issues.
+
+Version 1.2.13.0 - Apr 19, 2024
+- Overhauled Title Screen and Preset Screens, improving stability, increasing performance, and fixing odd behavior.
+- Implemented Vertical Look Lock option.
+- Implemented Pointsearch (combined Pointing and Wayfinding Stages) option.
+- Implemented Nearsight (fog) option.
+
+Version 1.2.12.0 - Apr 18, 2024
+- Fixed an issue causing the Pointing Stage to instantly fade out.
+- Fixed a bug in the VR Orienter that did not allow the look phase to properly complete.
+- Fixed a bug in which the player camera was unassigned in VR mode.
+- Adjusted data logging to also log the virtualizer position, such that it now logs both the camera location/orientation, and the virtualizer location/orientation.
+
+Version 1.2.11.0 - Apr 12, 2024
+- [Testing Pending] Data logging is now able to correctly log the Roomscale VR player's position.
+- [Testing Pending] Updated Title Screen is operational.
+- Fixed a bug where additional wall textures were not properly being scaled alongside the rest of the map.
+
+Version 1.2.10.0 - Apr 1, 2024
+- [Testing Pending] Added support for roomscale VR.
+- [Currently Nonoperational] Added a new UI that supports the usage of presets.
+- Adjusted map object scales.
+- Adjusted Training Stage walk path and to have it now be affected by height scaling.
+
+Version 1.2.9.0 - Mar 7, 2024
+- Fixed a bug with the Pointing Stage improperly tracking the Z rotation of the VR player.
+- Adjusted the size of maze objects and player spawn locations to limit visual cues in the Pointing and Wayfinding Stages.
+
+Version 1.2.8.0 - Mar 4, 2024
+- Fixed a floating point threshold calculation that caused the player to consistently fail the Retracing Stage for not moving, even if they were moving.
+- Automated the Player Rotation Finder script to be able to automatically recalculate the starting positions and angles for all provided trials.
+
+Version 1.2.7.3 - Feb 22, 2024
+- Adjusted desktop UI to be better compatible with ultra-wide resolutions.
+- Adjusted project descriptors.
+
+Version 1.2.7.2 - Feb 22, 2024
+- Fixed the persistent race condition bug with the VROrienter by adjusting the script execution order.
+- Optimized the VROrienter script and made the UI update system more robust.
+
+Version 1.2.7.1 - Feb 22, 2024
+- Fixed a persisting bug that prevented the VROrienter from working properly by having it manually search for UI elements, and making the script robust against rare instances the UI cannot be found.
+- Adjusted the VR Dot Crosshair placement to make the UI look less 2-dimensional.
+- Deprecated the loading screens in the Pointing and Wayfinding stages, as they did not work.
+
+Version 1.2.7.0 - Feb 22, 2024
+- Fixed a bug where the VRDotCrosshair script erroneously searching for the dot crosshair in desktop mode, where it does not exist.
+- Fixed a bug where the VROrienter would occasionally fail in the Pointing Stage and the Wayfinding Stage.
+- Minor optimizations to the VROrienter.
+
+Version 1.2.6.7 - Feb 22, 2024
+- Enabled the Dot Crosshair such that the Dot Crosshair search script works properly.
+- Added a brief loading screen to the Wayfinding and Pointing stages in order to prevent the trials from starting before everything is initialized.
+
+Version 1.2.6.6 - Feb 22, 2024
+- Fixed a bug which caused the VR Dot Crosshair to not be properly found due to improper script execution order.
+
+Version 1.2.6.5 - Feb 21, 2024
+- Fixed a bug in which the virtualizer's relative angle would not work from one side due to incorrect angle wrapping.
+- Fixed a bug in which the VR Dot Crosshair could not properly find the disabled object.
+- Improved the VROrienter logic for determining the virtualizer's angle relative to the pillar.
+
+Version 1.2.6.4 - Feb 21, 2024
+- Adjusted the Training Stage to more clearly prompt the desktop player to start the game.
+- Loosened the view angles in the VROrienter to allow for more leniency and user error.
+- Added vector drawings in comments for debug.
+
+Version 1.2.6.3 - Feb 21, 2024
+- Fixed a bug that caused the VROrienter code to not properly trigger completion.
+- Reverted a change to the Title Screen and VR Closing Scene, once again using 4 banners instead of 2 to ensure that one is always within the player's field of view, but moved the banners farther out in order to mitigate the potentially claustrophobic feeling.
+
+Version 1.2.6.2 - Feb 21, 2024
+- Fixed a bug in which you could transition scenes before the game even started in the Training Stage.
+- Fixed a bug in which the training stage would rapidly flicker back and forth between fade ins and out during scene transition.
+- Fixed a bug in which the Virtualizer's orientation was not properly being tracked in the VROrienter.
+
+Version 1.2.6.1 - Feb 21, 2024
+- Fixed a number of minor bugs with data logging and inaccurate UI elements.
+- Improved VROrienter clarity and documentation, as well as training scene support.
+- Adjusted the Experimental Mode timer in the Wayfinding scene to properly reflect the correct seconds remaining.
+- Adjusted VROrienter to check for both head and body direction.
+- [Testing Pending] Added a start screen to the training scene for desktop, and added VROrienter minigame to Training Scene.
+
+Version 1.2.6.0 - Feb 20, 2024
+- Fixed a bug in which the Retracing Scene Manager could not properly track whether the VR player was moving or not.
+- Fixed a bug that caused null reference errors in the VR Closing Scene.
+- Fixed a bug where the Gaze Handler eye tracking script was not properly added to each scene.
+- [Testing Pending] Fixed a bug that caused the VR Orient Pillars to not correctly spawn in the Pointing Stage.
+- Adjusted the time input field to be compatible with floats.
+- Adjusted the VR Closing Scene to be less cluttered.
+- [Testing Pending] Adjusted XR systems to be enabled by default and disabling it upon entering desktop mode, improving stability.
+- [Testing Pending] Adjusted the Title Screen to be VR compatible.
+- [Testing Pending] Significantly cleaned up scene managers.
+- [Testing Pending] Completely overhauled data logging, fixing errors in log output, improving headers, and using data buffers and asynchronous write operations to make it more stable and less resource intensive.
+
+Version 1.2.5.2 - Feb 16, 2024
+- Updated formatting and improved comments.
+- Vastly improved data logging.
+- Adjusted VR Closing Screen to better match player perspective.
+- Added Eye Tracking functionality through the Gaze Handler script.
+- Planned: A number of methods could do well to be moved to classes, including data logging, which needs to get significantly overhauled to improve efficiency and minimize performance impact.
+
+Version 1.2.5.1 - Feb 16, 2024
+- [Testing Pending] Fixed a number of bugs with data logging, and the VR player rotation should now be properly logged.
+- Adjusted brick material tiling to better match the expected scale in VR.
+- Improved the VR Closing Screen with an updated far floor and more banners to adjust for the fact that the VR player can't have its angle changed.
+
+Version 1.2.5.0 - Feb 15, 2024
+- Fixed a bug that caused VR player rotation to not be tracked properly.
+- Fixed a number of miscellaneous bugs in data logging.
+- Added a VR specific ending scene in order to prevent motion sickness.
+
+Version 1.2.4.0 - Feb 15, 2024
+- Fixed a bug with shaders that caused the blackout screen and VR pillars to incorrectly render on only the left eye.
+- Fixed a bug where the CVirtPlayerController would become desynced after teleporting.
+- Fixed a bug with shaders that allowed the VR UI Text to clip through walls.
+- Fixed a bug that caused the VR Orient Pillar to not spawn in the correct place with the Harp object.
+- Fixed improperly updating text within a number of scenes.
+- Fixed data logging to properly work with the updated location code for the CVirtPlayerController.
+- Updated certain controls and improved code comments.
+- Updated text prompts to more clearly reflect scene shifts.
+- Added a dot crosshair to the VR pointing stage to allow the VR player to better pinpoint the correct pointing angle.
+
+Version 1.2.3.0 - Feb 4, 2024
+- Added descriptions to scripts that did not have them.
+- Added a new 'sub-scene' which forces the VR player to look in a certain direction after spawning, compensating for the fact that you cannot set the VR player's view direction with teleports.
+- Standardized instruction text variable names across scenes.
+- Fixed a bug in which the Render-Over-Everything Shader for the VR UI was missing.
+- Fixed a bug that caused the VR UI to be rendered incorrectly.
+
+Version 1.2.2.2 - Feb 2, 2024
+- Adjusted the lap counter in the Learning Scene to properly reflect plurality.
+- Adjusted the pointing stage logging to show starting and true angle as well.
+- Adjusted the Virtualizer to be properly tagged as a Player.
+- Fixed a bug which caused improper loading of the VR player.
+- [Testing Pending] Fixed a bug in which the VR player would not be teleported properly.
+- [Testing Pending] Fixed a bug in which the VR UI was not being properly found in the Retracing Scene.
+- [Testing Pending] Fixed a bug in which the player could not start the Retracing Scene.
+
+Version 1.2.2.1 - Feb 1, 2024
+- Adjusted the side wall thickness for better shadow stability.
+- Fixed a bug in which the one-way barrier in the learning phase did not work.
+- Improved game end logic to be robust against potential future bugs with data logging.
+
+Version 1.2.2.0 - Feb 1, 2024
+- [Testing Pending] Added proper VR UI.
+- Added new blackout functionality to allow it to fade in and out of the scene.
+- Adjusted VR camera height.
+- Significantly overhauled data logging system (VR eye tracking support and pointing stage headset direction pending).
+- Improvements to code organization.
+- Fixed a bug in which the VR virtualizer was not being properly found.
+- Fixed a bug where the movement direction was incorrect.
+- Fixed a bug in which the retracing fail code could be ticked more than once resulting in extreme file counts.
+- [Testing Pending] Fixed a bug that caused the control scheme to not work properly with VR; control scheme is now compatible with default HTC Vive settings without modification.
+
+Version 1.2.1.0 - Jan 31, 2024
+- Added proper VR UI.
+- [Testing Pending] Added VR Blackout functionality.
+- Adjusted VR camera height.
+- Adjusted script organization.
+- Fixed a bug in which the VR virtualizer was not being properly found.
+- Fixed a bug where the movement direction was incorrect.
+- [Testing Pending] Fixed a bug that caused the control scheme to not work properly with VR; control scheme is now compatible with default HTC Vive settings without modification.
+
+Version 1.2.0.1 - Jan 31, 2024
+- Adjusted the pointing stage controls to use spacebar twice instead of needing to click. This is currently bugged as it both starts the trial and registers an input.
+- Adjusted the logged data in the wayfinding and pointing stages.
+- Significantly refactored scene managers for readability.
+- Minor miscellaneous script adjustments for VR support.
+- Added prototype one-way barrier to Learning Stage (still deprecated).
+- Fixed a bug in which players could adjust the movement speed/sensitivity modifier mode without being in experimental mode in the training stage.
+- Movement speed and mouse sensitivity are now modifiable across all scenes.
+- Scenes now dynamically load either a PC Player or VR Player depending on the option selected.
+- Added VR control support.
+- Switched from a SimpleXR-based character control scheme to SteamVR.
+- Updated floor textures to better support VR resolutions.
+
+Version 1.2.0.0 - Jan 22, 2024
+- QoL updates.
+- Added Steam VR, Simple XR, and Virtualizer support.
+
+Version 1.1.5.0 - Jan 19, 2024
+- Pre-VR update.
+- Mouse sensitivity and movement speed modifications in the training stage in experimental mode now carry over to the rest of the study.
+- Height scaling changed to be dynamically scalable, rather than a simple toggle.
+- Added a blackout effect to the start of the pointing and wayfinding stages.
+- Added the ability to toggle shadows.
+- Added the ability to enable or disable additional zero-thickness walls for the purpose of limited visibility.
+- Added the ability to disable the visibility of all items in the maze except for the starting object and target object for the purpose of limited visibility.
+
+Version 1.1.5.0 - Jan 17, 2024
+- Pre-VR update.
+- Adjusted data logging to be robust against crashes.
+- Implemented seeded shuffling for consistent randomization for the same user.
+- Added the ability to select what trial to start on for the pointing and wayfinding trials for crash robustness.
+- Improved comments and fixed certain naming conventions.
+
+Version 1.1.3.1 - Jan 16, 2024
+- Hotfixed an issue in which excess deprecated files prevented the compilation of the code.
+
+Version 1.1.3.0 - Jan 14, 2024
+- Fixed a bug where the bookshelf did not properly scale with the map.
+- Improved maze object hitboxes to feel better to use in larger scales.
+- Fixed issues with the CSV file and improved true angle accuracy.
+- Imported outline shader and script to highlight deadzones and barriers in experimental mode (currently not in use due to performance concerns).
+
+Version 1.1.2.0 - Jan 14, 2024
+- Organized/optimized code with reorganized scripts and new classes.
+- Fixed a bug where Retracing Stage colliders did not properly scale.
+- Fixed a bug where standing still while waiting for instructions in the Retracing Stage sent you back to the Learning Stage.
+- Adjusted some colliders in the Learning Stage and reorganized some scene contents for consistency.
+
+Version 1.1.1.0 - Jan 12, 2024
+- Organized scripts.
+
+Version 1.1.0.0 - Jan 10, 2024
+- Minimum viable product.
