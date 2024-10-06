@@ -2,6 +2,12 @@
 Patch History For PointingDSP
 =============================
 
+Version 1.3.6.0 - Oct 6, 2024
+- Adjusted the tiling of the Default Map's floor texture for improved resolution in VR.
+- Fixed an issue with camera rendering in the Closing Scene.
+- Fixed a bug in which the Wayfinding Stage and the Pointing Stage Substage did not log certain data points.
+- Fixed a bug that often automatically failed the Roomscale VR player in the Retracing Stage when not using the Default Map.
+
 Version 1.3.5.0 - Oct 5, 2024
 - Added the ability to perform joystick movement in Roomscale VR whem in experimental mode.
 - Fixed a UI issue in the Title Screen in which text did not properly appear on one of the banners.
