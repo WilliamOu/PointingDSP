@@ -185,11 +185,11 @@ public class LearningStageManager : MonoBehaviour
                 Vector3 direction = Quaternion.Euler(0, playerRotationY, 0) * Vector3.forward;
                 Vector3 pillarSpawn = playerSpawnPosition + direction * 2.5f;
 
-                StartCoroutine(PlayerManager.Instance.VROrienter.BeginOrientation("- Learning Phase -\nWait For Instructions", PersistentDataManager.Instance.SpawnPosition.x * PersistentDataManager.Instance.Scale, PersistentDataManager.Instance.SpawnPosition.z * PersistentDataManager.Instance.Scale, pillarSpawn.x * PersistentDataManager.Instance.Scale, pillarSpawn.z * PersistentDataManager.Instance.Scale));
+                StartCoroutine(PlayerManager.Instance.VROrienter.BeginOrientation("- Learning Phase -\nWait For Instructions", PersistentDataManager.Instance.SpawnPosition.x * PersistentDataManager.Instance.Scale, PersistentDataManager.Instance.SpawnPosition.z * PersistentDataManager.Instance.Scale, pillarSpawn.x * PersistentDataManager.Instance.Scale, pillarSpawn.z * PersistentDataManager.Instance.Scale, true));
             }
             else
             {
-                StartCoroutine(PlayerManager.Instance.VROrienter.BeginOrientation("- Learning Phase -\nWait For Instructions", 25 * PersistentDataManager.Instance.Scale, 25 * PersistentDataManager.Instance.Scale, 25 * PersistentDataManager.Instance.Scale, 20 * PersistentDataManager.Instance.Scale));
+                StartCoroutine(PlayerManager.Instance.VROrienter.BeginOrientation("- Learning Phase -\nWait For Instructions", 25 * PersistentDataManager.Instance.Scale, 25 * PersistentDataManager.Instance.Scale, 25 * PersistentDataManager.Instance.Scale, 20 * PersistentDataManager.Instance.Scale, true));
             }
         }
     }

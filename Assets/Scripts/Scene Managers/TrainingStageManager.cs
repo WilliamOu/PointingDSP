@@ -91,11 +91,11 @@ public class TrainingStageManager : MonoBehaviour
             if (!PersistentDataManager.Instance.IsRoomscale) { PlayerManager.Instance.CyberithVirtualizer.movementSpeedMultiplier = 0f; }
             if (PersistentDataManager.Instance.Map != "Default Map")
             {
-                StartCoroutine(PlayerManager.Instance.VROrienter.BeginOrientation("Walk around! Look around!", 11.25f, 11.25f, 11.25f, 8.75f));
+                StartCoroutine(PlayerManager.Instance.VROrienter.BeginOrientation("Walk around! Look around!", 11.25f, 11.25f, 11.25f, 8.75f, false));
             }
             else
             {
-                StartCoroutine(PlayerManager.Instance.VROrienter.BeginOrientation("Walk around! Look around!", 22.5f, 22.5f, 22.5f, 17.5f));
+                StartCoroutine(PlayerManager.Instance.VROrienter.BeginOrientation("Walk around! Look around!", 22.5f, 22.5f, 22.5f, 17.5f, false));
             }
         }
     }

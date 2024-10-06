@@ -3,6 +3,8 @@ PointingDSP is an open-source project initially developed for the Hegarty Spatia
 
 The most up-to-date build of the study may be found under 'Build & Patch History/', which contains the setup for conducting the original study (refer to "Original Gamemodes & Objectives" for details). Download of the entire repository for the source code is only necessary for those interested in modifying or expanding the study (see "Source Code & Unity Asset Store Policy" for instructions on how to rebuild the project).
 
+Note that there may be bugs, as the project is still under active development.
+
 # Original Gamemodes & Objectives
 The study supports three different gameplay modes:
 - Desktop Mode: Standard first-person controls with keyboard and mouse.

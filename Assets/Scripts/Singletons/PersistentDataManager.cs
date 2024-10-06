@@ -1,4 +1,4 @@
-// Description: The persistent data manager stores data that needs to be stored between scenes
+// Description: The Persistent Data Manager stores data that needs to be stored between scenes
 // It utilizes the singleton pattern to ensure that there is only one instance of it
 using System.Collections;
 using System.Collections.Generic;

@@ -37,14 +37,14 @@ public class VROrienter : MonoBehaviour
         }
     }
 
-    public IEnumerator BeginOrientation(string text, float startX, float startY, float lookX, float lookY)
+    public IEnumerator BeginOrientation(string text, float startX, float startY, float lookX, float lookY, bool useHeightOffset)
     {
         if (PersistentDataManager.Instance.IsRoomscale)
         {
-            StartCoroutine(WalkToLocation(startX, startY));
+            StartCoroutine(WalkToLocation(startX, startY, useHeightOffset));
             yield return new WaitUntil(() => isArrivalComplete);
         }
-        StartCoroutine(OrientVRPlayer(text, lookX, lookY));
+        StartCoroutine(OrientVRPlayer(text, lookX, lookY, useHeightOffset));
         yield return new WaitUntil(() => isOrientationComplete);
     }
 
@@ -55,15 +55,15 @@ public class VROrienter : MonoBehaviour
             StartCoroutine(WalkToLocationTrial(trial));
             yield return new WaitUntil(() => isArrivalComplete);
         }
-        StartCoroutine(OrientVRPlayer(trial));
+        StartCoroutine(OrientVRPlayer(trial, true));
         yield return new WaitUntil(() => isOrientationComplete);
     }
 
     // Training, Learning, and Retracing Stages
-    public IEnumerator OrientVRPlayer(string text, float positionX, float positionZ)
+    public IEnumerator OrientVRPlayer(string text, float positionX, float positionZ, bool useHeightOffset)
     {
         // Makes the VR player look at a certain object in the scene in order to orient them in the correct direction
-        StartCoroutine(OrientPlayer(positionX, positionZ));
+        StartCoroutine(OrientPlayer(positionX, positionZ, useHeightOffset));
         vrUIText.text = "Look at the red pillar";
         yield return new WaitUntil(() => isOrientationComplete);
         PersistentDataManager.Instance.PlayerIsOriented = true;
@@ -71,17 +71,17 @@ public class VROrienter : MonoBehaviour
     }
 
     // Pointing and Wayfinding Stages
-    public IEnumerator OrientVRPlayer(CSVData trial)
+    public IEnumerator OrientVRPlayer(CSVData trial, bool useHeightOffset)
     {
         // Makes the VR player look at a certain object in the scene in order to orient them in the correct direction
         GameObject startingObject = GameObject.Find(trial.Starting);
         Vector3 startingPosition = startingObject.transform.position;
-        StartCoroutine(OrientPlayer(startingPosition.x, startingPosition.z));
+        StartCoroutine(OrientPlayer(startingPosition.x, startingPosition.z, useHeightOffset));
         vrUIText.text = "Look at the red pillar";
         yield return new WaitUntil(() => isOrientationComplete);
     }
 
-    public IEnumerator OrientPlayer(float x, float z)
+    public IEnumerator OrientPlayer(float x, float z, bool useHeightOffset)
     {
         isOrientationComplete = false;
         // Sets the camera to cull (not show) everything except the UI and the VROrient pillars which are on the VROrient layer
@@ -89,7 +89,12 @@ public class VROrienter : MonoBehaviour
         int uiLayer = LayerMask.NameToLayer("UI");
         vrCamera.cullingMask |= (1 << vrOrientLayer) | (1 << uiLayer);
         Vector3 spawnPosition = new Vector3(x, 3.5f, z);
+        if (useHeightOffset) { spawnPosition.y += PersistentDataManager.Instance.SpawnPosition.y; }
         objectInstance = Instantiate(objectToLookAt, spawnPosition, Quaternion.identity);
+        if (PersistentDataManager.Instance.Map != "Default Map") {
+            objectInstance.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            objectInstance.transform.position = new Vector3(objectInstance.transform.position.x, objectInstance.transform.position.y - 1.75f, objectInstance.transform.position.z);
+        }
         objectInstance.layer = LayerMask.NameToLayer("VROrient");
         yield return new WaitUntil(() => IsPlayerLookingAtPillar());
         vrUIText.text = "";
@@ -162,11 +167,11 @@ public class VROrienter : MonoBehaviour
     {
         float startingX = trial.StartingX;
         float startingZ = trial.StartingZ;
-        StartCoroutine(WalkToLocation(startingX * PersistentDataManager.Instance.Scale, startingZ * PersistentDataManager.Instance.Scale));
+        StartCoroutine(WalkToLocation(startingX * PersistentDataManager.Instance.Scale, startingZ * PersistentDataManager.Instance.Scale, true));
         yield return new WaitUntil(() => isArrivalComplete);
     }
 
-    public IEnumerator WalkToLocation(float x, float z)
+    public IEnumerator WalkToLocation(float x, float z, bool useHeightOffset)
     {
         vrUIText.text = "Walk to the red waypoint";
         isArrivalComplete = false;
@@ -175,7 +180,13 @@ public class VROrienter : MonoBehaviour
         int uiLayer = LayerMask.NameToLayer("UI");
         vrCamera.cullingMask |= (1 << vrOrientLayer) | (1 << uiLayer);
         Vector3 spawnPosition = new Vector3(x, 2.5f, z);
+        if (useHeightOffset) { spawnPosition.y += PersistentDataManager.Instance.SpawnPosition.y; }
         objectInstance = Instantiate(objectToWalkTo, spawnPosition, Quaternion.identity);
+        if (PersistentDataManager.Instance.Map != "Default Map")
+        {
+            objectInstance.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            objectInstance.transform.position = new Vector3(objectInstance.transform.position.x, objectInstance.transform.position.y - 1.25f, objectInstance.transform.position.z);
+        }
         objectInstance.layer = LayerMask.NameToLayer("VROrient");
         yield return new WaitUntil(() => IsPlayerCloseToPillar());
         // Adjust to increase or decrease the responsiveness of the VR pillar after looking at it

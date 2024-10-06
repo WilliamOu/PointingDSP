@@ -5,7 +5,7 @@
       "app_key": "application.generated.unity.pointingdsp2022.exe",
       "launch_type": "url",
       "url": "steam://launch/",
-      "action_manifest_path": "C:\\Users\\w-ou\\OneDrive\\Documents\\GitHub\\ReCVEB-Maze-DesktopVer\\PointingDSP2022\\Assets\\StreamingAssets\\SteamVR\\actions.json",
+      "action_manifest_path": "C:\\Users\\w-ou\\OneDrive\\Documents\\GitHub\\PointingDSP\\Assets\\StreamingAssets\\SteamVR\\actions.json",
       "strings": {
         "en_us": {
           "name": "PointingDSP2022 [Testing]"

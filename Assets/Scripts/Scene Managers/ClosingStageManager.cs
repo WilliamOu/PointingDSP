@@ -24,7 +24,7 @@ public class ClosingStageManager : MonoBehaviour
     {
         PlayerManager.Instance.BlackoutController.FadeOut();
         if (PersistentDataManager.Instance.Nearsight) { PlayerManager.Instance.NearsightController.FadeOut(); }
-        if (PersistentDataManager.Instance.IsRoomscale) { StartCoroutine(vrOrienter.BeginOrientation("", 0, 0, 5f, 5f)); }
+        if (PersistentDataManager.Instance.IsRoomscale) { StartCoroutine(vrOrienter.BeginOrientation("", 0, 0, 5f, 5f, false)); }
     }
 
     void Update()

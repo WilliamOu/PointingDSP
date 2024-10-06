@@ -1,3 +1,5 @@
+// Description: The Player Manager assists with the initialization and the tracking of the player
+// It utilizes the singleton pattern to ensure that there is only one instance of it
 using UnityEngine;
 using TMPro;
 using Valve.VR;

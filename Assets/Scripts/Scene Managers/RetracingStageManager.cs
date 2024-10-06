@@ -243,16 +243,21 @@ public class RetracingStageManager : MonoBehaviour
     private void RetracingSpecificInitializations()
     {
         PlayerManager.Instance.DotCrosshair.Deactivate();
-        currentPlayerPosition = (PersistentDataManager.Instance.IsVR) ? PlayerManager.Instance.CyberithVirtualizer.transform.position : PlayerManager.Instance.transform.position;
-        lastPlayerPosition = (PersistentDataManager.Instance.IsVR) ? PlayerManager.Instance.CyberithVirtualizer.transform.position : PlayerManager.Instance.transform.position;
+        
         if (!PersistentDataManager.Instance.IsVR)
         {
+            currentPlayerPosition = PlayerManager.Instance.transform.position;
+            lastPlayerPosition = PlayerManager.Instance.transform.position;
             PlayerManager.Instance.PlayerMovement.DisableMovement();
             PlayerManager.Instance.BlackoutController.FadeOut();
         }
         else
         {
-            if (!PersistentDataManager.Instance.IsRoomscale) { PlayerManager.Instance.CyberithVirtualizer.movementSpeedMultiplier = 0f; }
+            if (!PersistentDataManager.Instance.IsRoomscale) {
+                PlayerManager.Instance.CyberithVirtualizer.movementSpeedMultiplier = 0f;
+                currentPlayerPosition = PlayerManager.Instance.CyberithVirtualizer.transform.position;
+                lastPlayerPosition = PlayerManager.Instance.CyberithVirtualizer.transform.position;
+            }
             PersistentDataManager.Instance.PlayerIsOriented = false;
             if (PersistentDataManager.Instance.Map != "Default Map")
             {
@@ -262,11 +267,11 @@ public class RetracingStageManager : MonoBehaviour
                 Vector3 direction = Quaternion.Euler(0, playerRotationY, 0) * Vector3.forward;
                 Vector3 pillarSpawn = playerSpawnPosition + direction * 2.5f;
 
-                StartCoroutine(PlayerManager.Instance.VROrienter.BeginOrientation("- Retracing Phase -\nWait For Instructions", PersistentDataManager.Instance.SpawnPosition.x * PersistentDataManager.Instance.Scale, PersistentDataManager.Instance.SpawnPosition.z * PersistentDataManager.Instance.Scale, pillarSpawn.x * PersistentDataManager.Instance.Scale, pillarSpawn.z * PersistentDataManager.Instance.Scale));
+                StartCoroutine(PlayerManager.Instance.VROrienter.BeginOrientation("- Retracing Phase -\nWait For Instructions", PersistentDataManager.Instance.SpawnPosition.x * PersistentDataManager.Instance.Scale, PersistentDataManager.Instance.SpawnPosition.z * PersistentDataManager.Instance.Scale, pillarSpawn.x * PersistentDataManager.Instance.Scale, pillarSpawn.z * PersistentDataManager.Instance.Scale, true));
             }
             else
             {
-                StartCoroutine(PlayerManager.Instance.VROrienter.BeginOrientation("- Retracing Phase -\nWait For Instructions", 25 * PersistentDataManager.Instance.Scale, 25 * PersistentDataManager.Instance.Scale, 25 * PersistentDataManager.Instance.Scale, 20 * PersistentDataManager.Instance.Scale));
+                StartCoroutine(PlayerManager.Instance.VROrienter.BeginOrientation("- Retracing Phase -\nWait For Instructions", 25 * PersistentDataManager.Instance.Scale, 25 * PersistentDataManager.Instance.Scale, 25 * PersistentDataManager.Instance.Scale, 20 * PersistentDataManager.Instance.Scale, true));
             }
         }
     }

@@ -64,10 +64,16 @@ public static class Teleport
             }
             else
             {
-                PlayerManager.Instance.CyberithVirtualizer.transform.position = new Vector3(position.x, PlayerManager.Instance.transform.position.y, position.z);
+                // PlayerManager.Instance.CyberithVirtualizer.transform.position = new Vector3(position.x, PlayerManager.Instance.transform.position.y, position.z);
+                PlayerManager.Instance.CyberithVirtualizer.transform.position = position;
             }
 
             characterController.enabled = true;
+        }
+        else
+        {
+            // Corrects the player's vertical position in Roomscale VR but does not displace their horizontal position
+            PlayerManager.Instance.transform.position = new Vector3(PlayerManager.Instance.transform.position.x, position.y, PlayerManager.Instance.transform.position.z);
         }
     }
 }

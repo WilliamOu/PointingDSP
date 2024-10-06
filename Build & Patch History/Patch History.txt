@@ -2,9 +2,17 @@
 Patch History For PointingDSP
 =============================
 
+Version 1.3.5.0 - Oct 5, 2024
+- Added the ability to perform joystick movement in Roomscale VR whem in experimental mode.
+- Fixed a UI issue in the Title Screen in which text did not properly appear on one of the banners.
+- Fixed a bug causing the VR player to not have their vertical spawn position properly adjusted.
+- Adjusted the VR Orient Pillars to now have their scale and vertical position corrected when not using the Default Map.
+- Corrected a scaling issue with the Roomscale VR player.
+- Restored the missing wood asset for the Bookshelf object.
+
 Version 1.3.4.1 - Oct 5, 2024
-- Adjustments to file organization for rebuilding
-- Minor adjustments to code organization and consistency
+- Adjustments to file organization for rebuilding.
+- Minor adjustments to code organization and consistency.
 
 Version 1.3.4.0 - Oct 3, 2024
 - Added the ability to drag and drop objects in the Map Creation Scene.
@@ -12,7 +20,7 @@ Version 1.3.4.0 - Oct 3, 2024
 - Fixed a bug displaying an erroneous error message in the Map Creation scene prompting users to disable their VR headset.
 - Fixed a bug in which stitching a texture atlas in Map Creation would not properly save it to its respective map file.
 - Fixed a bug allowing users to scroll to deleted block indices in First Person View while in Map Creation.
-- Fixed a number of issues related to the spawning of VROrienters when using maps other than the Default Map. 
+- Fixed a number of issues related to the spawning of VR Orienters when using maps other than the Default Map. 
 
 Version 1.3.3.0 - Sep 30, 2024
 - Fixed an issue where VR UI elements did not properly display on top of objects.
@@ -113,14 +121,14 @@ Version 1.2.15.0 - Apr 22, 2024
 - Fixed a bug causing the pointing substage to blackout while using the Pointsearch option.
 - Fixed a bug resulting in erroneous dot crosshair errors.
 - Fixed a bug affecting shaders on the VR blackout screen.
-- Fixed a bug allowing the VRE player to accidentally trigger arrows in the Learning Phase during VROrientation blackout.
+- Fixed a bug allowing the VRE player to accidentally trigger arrows in the Learning Phase during VR Orientation blackout.
 - Fixed a bug crashing VRE due to null referencing the Virtualizer in attempted teleports.
 - Fixed a bug crashing VRE due to null referencing the Virtualizer in the Retracing Phase.
 - Fixed a bug causing walk pillars to spawn at the incorrect location in the world.
 - Fixed a bug causing minor graphical glitches on miscellaneous assets in the Title and Preset Select Screens.
 - Adjusted the VR player's hitbox to reflect the body rather than the head.
 - Enabled cross platform compatibility for keypresses.
-- Adjusted various internal settings like Vertical Rotation Fix settings, VROrienter settings, and Nearsight settings to be modifiable in the PersistentDataManager.
+- Adjusted various internal settings like Vertical Rotation Fix settings, VR Orienter settings, and Nearsight settings to be modifiable in the PersistentDataManager.
 - Disabled VR hand tracking to prevent instability and related bugs.
 - Added the option to skip the retracing phase.
 - Added the option to skip the training phase.
@@ -168,18 +176,18 @@ Version 1.2.7.3 - Feb 22, 2024
 - Adjusted project descriptors.
 
 Version 1.2.7.2 - Feb 22, 2024
-- Fixed the persistent race condition bug with the VROrienter by adjusting the script execution order.
-- Optimized the VROrienter script and made the UI update system more robust.
+- Fixed the persistent race condition bug with the VR Orienter by adjusting the script execution order.
+- Optimized the VR Orienter script and made the UI update system more robust.
 
 Version 1.2.7.1 - Feb 22, 2024
-- Fixed a persisting bug that prevented the VROrienter from working properly by having it manually search for UI elements, and making the script robust against rare instances the UI cannot be found.
+- Fixed a persisting bug that prevented the VR Orienter from working properly by having it manually search for UI elements, and making the script robust against rare instances the UI cannot be found.
 - Adjusted the VR Dot Crosshair placement to make the UI look less 2-dimensional.
 - Deprecated the loading screens in the Pointing and Wayfinding stages, as they did not work.
 
 Version 1.2.7.0 - Feb 22, 2024
-- Fixed a bug where the VRDotCrosshair script erroneously searching for the dot crosshair in desktop mode, where it does not exist.
-- Fixed a bug where the VROrienter would occasionally fail in the Pointing Stage and the Wayfinding Stage.
-- Minor optimizations to the VROrienter.
+- Fixed a bug where the VR Dot Crosshair script erroneously searching for the dot crosshair in desktop mode, where it does not exist.
+- Fixed a bug where the VR Orienter would occasionally fail in the Pointing Stage and the Wayfinding Stage.
+- Minor optimizations to the VR Orienter.
 
 Version 1.2.6.7 - Feb 22, 2024
 - Enabled the Dot Crosshair such that the Dot Crosshair search script works properly.
@@ -191,28 +199,28 @@ Version 1.2.6.6 - Feb 22, 2024
 Version 1.2.6.5 - Feb 21, 2024
 - Fixed a bug in which the virtualizer's relative angle would not work from one side due to incorrect angle wrapping.
 - Fixed a bug in which the VR Dot Crosshair could not properly find the disabled object.
-- Improved the VROrienter logic for determining the virtualizer's angle relative to the pillar.
+- Improved the VR Orienter logic for determining the virtualizer's angle relative to the pillar.
 
 Version 1.2.6.4 - Feb 21, 2024
 - Adjusted the Training Stage to more clearly prompt the desktop player to start the game.
-- Loosened the view angles in the VROrienter to allow for more leniency and user error.
+- Loosened the view angles in the VR Orienter to allow for more leniency and user error.
 - Added vector drawings in comments for debug.
 
 Version 1.2.6.3 - Feb 21, 2024
-- Fixed a bug that caused the VROrienter code to not properly trigger completion.
+- Fixed a bug that caused the VR Orienter code to not properly trigger completion.
 - Reverted a change to the Title Screen and VR Closing Scene, once again using 4 banners instead of 2 to ensure that one is always within the player's field of view, but moved the banners farther out in order to mitigate the potentially claustrophobic feeling.
 
 Version 1.2.6.2 - Feb 21, 2024
 - Fixed a bug in which you could transition scenes before the game even started in the Training Stage.
 - Fixed a bug in which the training stage would rapidly flicker back and forth between fade ins and out during scene transition.
-- Fixed a bug in which the Virtualizer's orientation was not properly being tracked in the VROrienter.
+- Fixed a bug in which the Virtualizer's orientation was not properly being tracked in the VR Orienter.
 
 Version 1.2.6.1 - Feb 21, 2024
 - Fixed a number of minor bugs with data logging and inaccurate UI elements.
-- Improved VROrienter clarity and documentation, as well as training scene support.
+- Improved VR Orienter clarity and documentation, as well as training scene support.
 - Adjusted the Experimental Mode timer in the Wayfinding scene to properly reflect the correct seconds remaining.
-- Adjusted VROrienter to check for both head and body direction.
-- [Testing Pending] Added a start screen to the training scene for desktop, and added VROrienter minigame to Training Scene.
+- Adjusted VR Orienter to check for both head and body direction.
+- [Testing Pending] Added a start screen to the training scene for desktop, and added VR Orienter minigame to Training Scene.
 
 Version 1.2.6.0 - Feb 20, 2024
 - Fixed a bug in which the Retracing Scene Manager could not properly track whether the VR player was moving or not.

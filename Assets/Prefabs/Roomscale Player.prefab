@@ -230,6 +230,7 @@ GameObject:
   - component: {fileID: 4797726035067670932}
   - component: {fileID: 6444102694212748459}
   - component: {fileID: 6503932669732209358}
+  - component: {fileID: 8155981375796223654}
   m_Layer: 0
   m_Name: Roomscale Player
   m_TagString: Untagged
@@ -247,7 +248,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.2, y: 2.2, z: 2.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 494198}
@@ -345,6 +346,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nearsightColor: {r: 0, g: 0, b: 0, a: 1}
+--- !u!114 &8155981375796223654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 107946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 882d7cb4fa4e1d4428eeee42ae0a1715, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkSpeed: 0.5
+  sprintSpeed: 1
+  playerHead: {fileID: 429506}
 --- !u!1 &109154
 GameObject:
   m_ObjectHideFlags: 0
