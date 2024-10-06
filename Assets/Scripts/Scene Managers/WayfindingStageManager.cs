@@ -71,7 +71,7 @@ public class WayfindingStageManager : MonoBehaviour
     // Data Logging
     private void CreateWayfindingFile()
     {
-        string header = "Global Time,Elapsed Time,Trial Number,Trial Name,Starting Horizontal Angle,Starting Vertical Angle,True Horizontal Angle,True Vertical Angle,Participant X,Participant Y,Participant Z,Rotation X,Rotation Y";
+        string header = "Global Time,Elapsed Time,Trial Number,Trial Name,Starting,Target,Starting Horizontal Angle,Starting Vertical Angle,True Horizontal Angle,True Vertical Angle,Participant X,Participant Y,Participant Z,Rotation X,Rotation Y";
         if (PersistentDataManager.Instance.IsVR) { header += ",Rotation Z,Grid"; }
         if (PersistentDataManager.Instance.IsVR && !PersistentDataManager.Instance.IsRoomscale) { header += ",Virtualizer X,Virtualizer Z,Virtualizer Angle"; }
         if (PersistentDataManager.Instance.IsVR) { header += PlayerManager.Instance.GazeHandler.appendedEyeTrackingInformation; }
@@ -81,7 +81,7 @@ public class WayfindingStageManager : MonoBehaviour
 
     private void CreatePointingFile()
     {
-        string header = "Global Time,Elapsed Time,Trial Number,Trial Name,Starting,Target,Starting Angle,True Angle,Participant X,Participant Z,Rotation X,Rotation Y";
+        string header = "Global Time,Elapsed Time,Trial Number,Trial Name,Starting,Target,Starting Horizontal Angle,Starting Vertical Angle,True Horizontal Angle,True Vertical Angle,Participant X,Participant Y,Participant Z,Rotation X,Rotation Y";
         header += (PersistentDataManager.Instance.IsVR) ? ",Rotation Z,Grid\n" : ",Grid\n";
         // Pointing Stage does not track eye position, so gaze handler information is not appended
         PersistentDataManager.Instance.CreateAndWriteToFile("pointing.csv", header);
@@ -106,9 +106,9 @@ public class WayfindingStageManager : MonoBehaviour
 
                     // Build the data line
                     StringBuilder sb = new StringBuilder();
-                    sb.AppendFormat("{0:F2},{1:F2},{2},{3},{4},{5},{6:F2},{7:F2},{8:F2},{9:F2},{10:F2}",
+                    sb.AppendFormat("{0:F2},{1:F2},{2},{3},{4},{5},{6:F2},{7:F2},{8:F2},{9:F2},{10:F2},{11:F2},{12:F2},{13:F2},{14:F2}",
                         Time.timeSinceLevelLoad, elapsedTime, trialCount, currentTrial.Level, currentTrial.Starting,
-                        currentTrial.Target, playerPosition.x, playerPosition.y, playerPosition.z, playerRotation.x, playerRotation.y);
+                        currentTrial.Target, currentTrial.StartingHorizontalAngle, currentTrial.StartingVerticalAngle, currentTrial.TrueHorizontalAngle, currentTrial.TrueVerticalAngle, playerPosition.x, playerPosition.y, playerPosition.z, playerRotation.x, playerRotation.y);
 
                     if (PersistentDataManager.Instance.IsVR) { sb.AppendFormat(",{0:F2},{1}", playerRotation.z, grid); }
                     if (PersistentDataManager.Instance.IsVR && !PersistentDataManager.Instance.IsRoomscale) { sb.AppendFormat(",{0:F2},{1:F2},{2:F2}", PlayerManager.Instance.CyberithVirtualizer.transform.position.x, PlayerManager.Instance.CyberithVirtualizer.transform.position.z, PlayerManager.Instance.CyberithVirtualizer.GlobalOrientation.eulerAngles.y); }

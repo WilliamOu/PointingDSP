@@ -23,7 +23,7 @@ public class DeadzoneBarrier : MonoBehaviour
             {
                 Debug.Log("Player collided with a barrier");
                 // Notify the RetracingStageManager
-                stageManager.FailRetracing();
+                stageManager.EnteredDeadzoneBarrier();
             }
         }
     }

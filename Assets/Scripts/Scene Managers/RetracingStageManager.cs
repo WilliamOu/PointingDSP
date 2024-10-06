@@ -181,7 +181,7 @@ public class RetracingStageManager : MonoBehaviour
     {
         if (!PersistentDataManager.Instance.IsVR) { currentPlayerPosition = PlayerManager.Instance.transform.position; }
         else if (!PersistentDataManager.Instance.IsRoomscale) { currentPlayerPosition = PlayerManager.Instance.CyberithVirtualizer.transform.position; }
-        else { currentPlayerPosition = new Vector3(PlayerManager.Instance.PlayerCamera.transform.position.x, 0f, PlayerManager.Instance.PlayerCamera.transform.position.z); }
+        else { currentPlayerPosition = PlayerManager.Instance.PlayerCamera.transform.position; }
 
         // Checks distance rather than using an equality due to floating point imprecision
         // Tighten the movement threshold if, for some reason, the player is incorrectly being registered as not moving
@@ -201,6 +201,7 @@ public class RetracingStageManager : MonoBehaviour
             stillTime += Time.deltaTime;
             if (stillTime >= timeToFail)
             {
+                Debug.Log("Failed retracing due to standing still");
                 FailRetracing();
             }
         }
@@ -217,6 +218,7 @@ public class RetracingStageManager : MonoBehaviour
             deadzoneTime += Time.deltaTime;
             if (deadzoneTime >= timeToFail)
             {
+                Debug.Log("Failed retracing due to standing in a deadzone for too long");
                 FailRetracing();
             }
         }
@@ -224,6 +226,14 @@ public class RetracingStageManager : MonoBehaviour
         {
             deadzoneTime = 0f;
         }
+    }
+
+    public void EnteredDeadzoneBarrier()
+    {
+        if (PersistentDataManager.Instance.GameStarted && !PersistentDataManager.Instance.GameEnded)
+        {
+            FailRetracing();
+        } 
     }
 
     public void PlayerPassedCheckpoint(int checkpointNumber)
@@ -258,6 +268,11 @@ public class RetracingStageManager : MonoBehaviour
                 currentPlayerPosition = PlayerManager.Instance.CyberithVirtualizer.transform.position;
                 lastPlayerPosition = PlayerManager.Instance.CyberithVirtualizer.transform.position;
             }
+            else
+            {
+                currentPlayerPosition = PlayerManager.Instance.PlayerCamera.transform.position;
+                lastPlayerPosition = PlayerManager.Instance.PlayerCamera.transform.position;
+            }
             PersistentDataManager.Instance.PlayerIsOriented = false;
             if (PersistentDataManager.Instance.Map != "Default Map")
             {
@@ -280,6 +295,7 @@ public class RetracingStageManager : MonoBehaviour
     {
         if (!PersistentDataManager.Instance.GameEnded)
         {
+            Debug.Log("Player failed retracing");
             PersistentDataManager.Instance.RetraceCount++;
             PersistentDataManager.Instance.TotalLaps = 1;
 
