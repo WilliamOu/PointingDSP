@@ -7,11 +7,15 @@ using UnityEngine;
 using UnityEngine.XR;
 using InputDevice = UnityEngine.XR.InputDevice;
 using Valve.VR;
+using Varjo.XR;
 
 // For future reference, could add SRANIPAL support here for use with Vives
 public class GazeHandler : MonoBehaviour
 {
     public string appendedEyeTrackingInformation = ",Screen Fixation X,Screen Fixation Y,Gaze Fixation X,Gaze Fixation Y,Gaze Fixation Z,Left Eye Position X,Left Eye Position Y,Left Eye Position Z,Right Eye Position X,Right Eye Position Y,Right Eye Position Z,Left Eye Rotation X,Left Eye Rotation Y,Left Eye Rotation Z,Right Eye Rotation X,Right Eye Rotation Y,Right Eye Rotation Z,Left Eye Open Amount,Right Eye Open Amount\n";
+
+    private bool isVarjoHeadset;
+    private VarjoEyeTracking.GazeData gazeData;
 
     private InputDevice eyeTracker;
     private Eyes eyesData;
@@ -25,6 +29,11 @@ public class GazeHandler : MonoBehaviour
 
     private void InitializeEyeTracker()
     {
+        isVarjoHeadset = VarjoEyeTracking.IsGazeAllowed();
+        if (isVarjoHeadset)
+        {
+            Debug.Log("Varjo headset detected, using Varjo eye tracking.");
+        }
         if (PersistentDataManager.Instance.IsVR)
         {
             List<InputDevice> inputDevices = new List<InputDevice>();
@@ -48,7 +57,7 @@ public class GazeHandler : MonoBehaviour
                screenFixationPoint.y.ToString("F2") + "," + 
                GetGazeFixationPoint().x.ToString("F2") + "," + 
                GetGazeFixationPoint().y.ToString("F2") + "," + 
-               GetGazeFixationPoint().z.ToString("F2") + /*"," +
+               GetGazeFixationPoint().z.ToString("F2") + "," +
                GetLeftEyePosition().x.ToString("F2") + "," + 
                GetLeftEyePosition().y.ToString("F2") + "," + 
                GetLeftEyePosition().z.ToString("F2") + "," +
@@ -62,7 +71,7 @@ public class GazeHandler : MonoBehaviour
                GetRightEyeRotation().eulerAngles.y.ToString("F2") + "," + 
                GetRightEyeRotation().eulerAngles.z.ToString("F2") + "," +
                GetLeftEyeOpenAmount().ToString("F2") + "," + 
-               GetRightEyeOpenAmount().ToString("F2") +*/ "\n";
+               GetRightEyeOpenAmount().ToString("F2") + "\n";
     }
 
     public Vector2 GetScreenFixationPoint()
@@ -74,7 +83,12 @@ public class GazeHandler : MonoBehaviour
 
     public Vector3 GetGazeFixationPoint()
     {
-        if (eyeTracker.isValid && eyesData.TryGetFixationPoint(out Vector3 fixationPoint))
+        if (isVarjoHeadset)
+        {
+            gazeData = VarjoEyeTracking.GetGaze();
+            return gazeData.gaze.forward;
+        }
+        else if (eyeTracker.isValid && eyesData.TryGetFixationPoint(out Vector3 fixationPoint))
         {
             return fixationPoint;
         }

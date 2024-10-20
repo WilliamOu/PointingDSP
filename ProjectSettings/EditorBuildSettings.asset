@@ -33,6 +33,9 @@ EditorBuildSettings:
     path: Assets/Scenes/VR Closing Stage.unity
     guid: 7bd14527364ab62429f5fa9e98865b12
   m_configObjects:
+    Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 91474166a909f4942b99f3982e81856b, type: 2}
     Unity.XR.OpenVR.Settings: {fileID: 11400000, guid: 98e78b83379dbdb4b9cdb7cc97d552f2, type: 2}
+    Varjo.XR.Settings: {fileID: 11400000, guid: 49ff4b3ff5622944eb81bff7f9d91559, type: 2}
+    com.unity.xr.arfoundation.simulation_settings: {fileID: 11400000, guid: a027703b5de08564183008860ff9fc52, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 60fa637a44942a34aa86a66dc6616630, type: 2}
     com.unity.xr.openxr.settings4: {fileID: 11400000, guid: 3fbb0fb4af641e046b71377d529997cc, type: 2}
