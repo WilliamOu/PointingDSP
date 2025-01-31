@@ -70,13 +70,13 @@ public class MapManager : MonoBehaviour
 
         foreach (Transform child in LearningStageObjects.transform.Find("Arrow Objects").transform)
         {
-            child.gameObject.AddComponent<ArrowScaler>();
+            child.gameObject.AddComponent<HitboxOnlyScaler>();
             child.gameObject.AddComponent<PositionScaler>();
         }
 
         foreach (Transform child in RetracingStageObjects.transform.Find("Retracing Arrow Objects").transform)
         {
-            child.gameObject.AddComponent<ArrowScaler>();
+            child.gameObject.AddComponent<HitboxOnlyScaler>();
             child.gameObject.AddComponent<PositionScaler>();
         }
 

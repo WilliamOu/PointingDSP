@@ -7,6 +7,18 @@ using System.Threading.Tasks;
 using UnityEngine;
 using GLTFast;
 
+// TODO: If world size/load time ever becomes an issue, implement a method for loading blocks:
+/* 
+- Store a list of chunks.
+- Each chunk has an associated integer for relative chunk coordinate and load; with bitmask, 8 bits for x and 8 bits for z coordinate, and 16 bits for load.
+- Each chunk also has a 3D array of short[256][][]. This minimizes serialization and deserialization time, though block creation and deletion might slightly suffer because of having to create new arrays when inserting into an array. This is negligible though.
+- Each short can be bitmasked; 11 bits for block type, 5 bits for orientation. 
+- Adjust the world loading to only initialize chunks that are stored in the list.
+- When editing the world, if inserting into a non-existent chunk, load the chunk if it is within valid bounds.
+- When creating or destroying blocks, update the chunk load.
+- When saving the world, if a chunk is empty (load of 0), don't save it.
+*/
+
 [System.Serializable]
 public class SerializableVector3
 {

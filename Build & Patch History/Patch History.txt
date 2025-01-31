@@ -2,6 +2,11 @@
 Patch History For PointingDSP
 =============================
 
+Version 1.3.8.0 - Jan 30, 2024
+- Improved a number of Preset Screen Manager fields, better clarifying their purposes.
+- Improved the naming conventions of a number of map scaler scripts.
+- Added a new scaling script to objects in the Default Map, so that both the model and their hitboxes now scale with the map.
+
 Version 1.3.7.0 - Oct 20, 2024
 - Improved support for Oculus and Varjo Headsets.
 - Improved gaze fixation data logging on Varjo Headsets.
