@@ -25,14 +25,6 @@ Additionally, PointingDSP offers tools for creating custom maps, a hybrid build 
 # Source Code & Unity Asset Store Policy
 In adherence with the Unity Asset Store Terms of Service, which prohibits the redistribution of Store assets, several Package Manager Assets and Asset Store Plugins have not been included in this open-source build. As such, the project not compile immediately upon download. The following assets must be manually installed for the project to function:
 
-From Window > Package Manager:
-- Unity UI
-- TextMeshPro
-- OpenXR Plugin
-- Varjo XR
-- Oculus XR
-- Unity glTFast 
-
 From Window > Asset Store:
 - QuickOutline
 - SteamVR
@@ -40,7 +32,6 @@ From Window > Asset Store:
 From Assets > Import Package > Custom Package:
 - CybSDK
 
-Note that the CybSDK package is only required for those who wish to run studies with the Cyberith Virtualizer, and may be found on the Cyberith website.
 After initializing the missing dependencies, ensure that XR is set to be initialized on startup via Project Settings > XR Plug-in Management > Initialize XR on Startup. Also ensure that "OpenVR Loader" and "OpenXR" are checked off.
 
 # Attribution
