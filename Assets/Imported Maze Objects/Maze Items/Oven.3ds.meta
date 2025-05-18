@@ -1,0 +1,168 @@
+fileFormatVersion: 2
+guid: 7f9dcf0aa5373c54ba56287effb9c536
+timeCreated: 1472424433
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: oven_burner
+    100004: oven_burner_
+    100006: oven_burnerT
+    100008: oven_control
+    100010: oven_door
+    100012: oven_drawer
+    100014: oven_grate
+    100016: oven_knob
+    100018: oven_knob.00
+    100020: oven_knob.00.000
+    100022: oven_knob.00.001
+    100024: oven_main
+    100026: oven_main.00
+    100028: oven_stoveTo
+    100030: oven_top
+    100032: oven_top_dis
+    100034: oven_vent_fr
+    100036: oven_vent_fr.000
+    100038: oven_vent_fr.001
+    400000: //RootNode
+    400002: oven_burner
+    400004: oven_burner_
+    400006: oven_burnerT
+    400008: oven_control
+    400010: oven_door
+    400012: oven_drawer
+    400014: oven_grate
+    400016: oven_knob
+    400018: oven_knob.00
+    400020: oven_knob.00.000
+    400022: oven_knob.00.001
+    400024: oven_main
+    400026: oven_main.00
+    400028: oven_stoveTo
+    400030: oven_top
+    400032: oven_top_dis
+    400034: oven_vent_fr
+    400036: oven_vent_fr.000
+    400038: oven_vent_fr.001
+    2300000: oven_burner
+    2300002: oven_burner_
+    2300004: oven_burnerT
+    2300006: oven_control
+    2300008: oven_door
+    2300010: oven_drawer
+    2300012: oven_grate
+    2300014: oven_knob
+    2300016: oven_knob.00
+    2300018: oven_knob.00.000
+    2300020: oven_knob.00.001
+    2300022: oven_main
+    2300024: oven_main.00
+    2300026: oven_stoveTo
+    2300028: oven_top
+    2300030: oven_top_dis
+    2300032: oven_vent_fr
+    2300034: oven_vent_fr.000
+    2300036: oven_vent_fr.001
+    3300000: oven_burner
+    3300002: oven_burner_
+    3300004: oven_burnerT
+    3300006: oven_control
+    3300008: oven_door
+    3300010: oven_drawer
+    3300012: oven_grate
+    3300014: oven_knob
+    3300016: oven_knob.00
+    3300018: oven_knob.00.000
+    3300020: oven_knob.00.001
+    3300022: oven_main
+    3300024: oven_main.00
+    3300026: oven_stoveTo
+    3300028: oven_top
+    3300030: oven_top_dis
+    3300032: oven_vent_fr
+    3300034: oven_vent_fr.000
+    3300036: oven_vent_fr.001
+    4300000: oven_main.00
+    4300002: oven_knob.00
+    4300004: oven_knob.00.000
+    4300006: oven_knob.00.001
+    4300008: oven_knob
+    4300010: oven_burner_
+    4300012: oven_burner
+    4300014: oven_vent_fr
+    4300016: oven_vent_fr.000
+    4300018: oven_top_dis
+    4300020: oven_control
+    4300022: oven_top
+    4300024: oven_main
+    4300026: oven_drawer
+    4300028: oven_door
+    4300030: oven_vent_fr.001
+    4300032: oven_burnerT
+    4300034: oven_stoveTo
+    4300036: oven_grate
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleRotations: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

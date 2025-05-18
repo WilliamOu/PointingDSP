@@ -1,16 +1,29 @@
 # Protected Assets and other miscellaneous files
-/[Aa]ssets/[Pp]rotected/
+/[Aa]ssets/[Pp]rotected/Materials/
+/[Aa]ssets/[Pp]rotected/Materials.meta
+/[Aa]ssets/[Pp]rotected/XR/
+/[Aa]ssets/[Pp]rotected/XR.meta
+/[Aa]ssets/[Pp]rotected/XRI/
+/[Aa]ssets/[Pp]rotected/XRI.meta
+/[Aa]ssets/[Pp]rotected/Tree_Textures/
+/[Aa]ssets/[Pp]rotected/Tree_Textures.meta
+/[Aa]ssets/[Pp]rotected/Voxel Engine/
+/[Aa]ssets/[Pp]rotected/Voxel_Engine.meta
 /.vscode/
 /.plastic/
 
 # Asset Store Plugins
 /[Aa]ssets/[Cc]ybSDK/
+/[Aa]ssets/[Cc]ybSDK.meta/
 /[Aa]ssets/[Pp]lugins/
 /[Aa]ssets/[Qq]uick[Oo]utline/
+/[Aa]ssets/[Qq]uick[Oo]utline.meta
 /[Aa]ssets/[Ss]teamVR_[Rr]esources/
+/[Aa]ssets/[Ss]teamVR_[Rr]esources.meta
 /[Aa]ssets/[Ss]teamVR_[Ii]nput/
+/[Aa]ssets/[Ss]teamVR_[Ii]nput.meta
 /[Aa]ssets/[Ss]teamVR/
-/[Aa]ssets/[Ss]treaming[Aa]ssets/[Ss]teamVR/
+/[Aa]ssets/[Ss]teamVR.meta
 
 # This .gitignore file should be placed at the root of your Unity project directory
 #
@@ -164,7 +177,6 @@ StyleCopReport.xml
 *_p.c
 *_h.h
 *.ilk
-*.meta
 *.obj
 *.iobj
 *.pch

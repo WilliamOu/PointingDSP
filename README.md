@@ -26,27 +26,20 @@ Additionally, PointingDSP offers tools for creating custom maps, a hybrid build 
 In adherence with the Unity Asset Store Terms of Service, which prohibits the redistribution of Store assets, several Package Manager Assets and Asset Store Plugins have not been included in this open-source build. As such, the project does not compile immediately upon download. Perform the following steps if you wish to reconstruct the project:
 
 1) Install the following assets:
-From Window > Asset Store:
-- Quick Outline
-- SteamVR Plugin
+- From Window > Asset Store:
+    - Quick Outline
+    - SteamVR Plugin
 
-From Package Manager > Add package from disk
-- CybSDK_Unity_2022.unitypackage
+- From Package Manager > Add package from disk
+    - CybSDK_Unity_2022.unitypackage
 
-Note that the CybSDK Unity package can be acquired by contacting Cyberith for the Virtualizer development package.
+- Note that the CybSDK Unity package can be acquired by contacting Cyberith for the Virtualizer development package.
 
 2) Set XR to be initialized on startup via Project Settings > XR Plug-in Management > Initialize XR on Startup. Also ensure that "OpenVR Loader" and "OpenXR" are checked off.
 
-3) Initialize the SteamVR Input system via Window > SteamVR Input:
-- Generate the default SteamVR Input folder if prompted.
-- Select the 'default' Action Set.
-- Ensure the mode is set to 'mirrored'.
-- Under Actions, add "TriggerPress" and "TrackpadPress" actions of type 'boolean' and required as 'mandatory', and "ExperimentalModeWalk" and "ExperimentalModeSprint" of type 'vector2' and required as 'mandatory'.
-- Note that these will actions need to be bound to your controller via a mapping profile for a specified controller. 
+3) Run the 'universal_patcher.py' script to patch installed dependencies.
 
-4) Run the 'universal_patcher.py' script to patch installed dependencies.
-
-5) Run Assets > Reimport All as a final check to ensure no errors.
+4) If any errors with dependencies are spotted, run Assets > Reimport All.
 
 # Attribution
 This project is licensed under the Apache License 2.0. 
