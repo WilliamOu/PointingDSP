@@ -23,16 +23,30 @@ A wide array of parameters and settings can be adjusted and saved as presets, al
 Additionally, PointingDSP offers tools for creating custom maps, a hybrid build featuring a sandbox-like voxel engine supporting everything from custom block types to custom trial lists and the importing of 3D models in real-time.
 
 # Source Code & Unity Asset Store Policy
-In adherence with the Unity Asset Store Terms of Service, which prohibits the redistribution of Store assets, several Package Manager Assets and Asset Store Plugins have not been included in this open-source build. As such, the project not compile immediately upon download. The following assets must be manually installed for the project to function:
+In adherence with the Unity Asset Store Terms of Service, which prohibits the redistribution of Store assets, several Package Manager Assets and Asset Store Plugins have not been included in this open-source build. As such, the project does not compile immediately upon download. Perform the following steps if you wish to reconstruct the project:
 
+1) Install the following assets:
 From Window > Asset Store:
-- QuickOutline
-- SteamVR
+- Quick Outline
+- SteamVR Plugin
 
-From Assets > Import Package > Custom Package:
-- CybSDK
+From Package Manager > Add package from disk
+- CybSDK_Unity_2022.unitypackage
 
-After initializing the missing dependencies, ensure that XR is set to be initialized on startup via Project Settings > XR Plug-in Management > Initialize XR on Startup. Also ensure that "OpenVR Loader" and "OpenXR" are checked off.
+Note that the CybSDK Unity package can be acquired by contacting Cyberith for the Virtualizer development package.
+
+2) Set XR to be initialized on startup via Project Settings > XR Plug-in Management > Initialize XR on Startup. Also ensure that "OpenVR Loader" and "OpenXR" are checked off.
+
+3) Initialize the SteamVR Input system via Window > SteamVR Input:
+- Generate the default SteamVR Input folder if prompted.
+- Select the 'default' Action Set.
+- Ensure the mode is set to 'mirrored'.
+- Under Actions, add "TriggerPress" and "TrackpadPress" actions of type 'boolean' and required as 'mandatory', and "ExperimentalModeWalk" and "ExperimentalModeSprint" of type 'vector2' and required as 'mandatory'.
+- Note that these will actions need to be bound to your controller via a mapping profile for a specified controller. 
+
+4) Run the 'universal_patcher.py' script to patch installed dependencies.
+
+5) Run Assets > Reimport All as a final check to ensure no errors.
 
 # Attribution
 This project is licensed under the Apache License 2.0. 
