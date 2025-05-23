@@ -30,7 +30,7 @@ In adherence with the Unity Asset Store Terms of Service, which prohibits the re
         - Quick Outline
         - SteamVR Plugin
 		
-    - After installing all assets, restart the editor. Do not boot the project into safe mode so that the following steps may be properly performed. 
+    - After installing all assets, the project should safely compile out of safe mode. Restart the editor if not already prompted. 
 	- If any errors with dependencies are spotted, run Assets > Reimport All.
 
 2) Configure the above assets and other dependencies:
