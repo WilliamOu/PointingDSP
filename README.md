@@ -29,20 +29,13 @@ In adherence with the Unity Asset Store Terms of Service, which prohibits the re
     - From Window > Asset Store:
         - Quick Outline
         - SteamVR Plugin
-
-    - From Package Manager > Add package from disk
-        - CybSDK_Unity_2022.unitypackage
-
-    - Note that the CybSDK Unity package can be acquired by contacting Cyberith for the Virtualizer development package.
+		
     - After installing all assets, restart the editor. Do not boot the project into safe mode so that the following steps may be properly performed. 
+	- If any errors with dependencies are spotted, run Assets > Reimport All.
 
-2) Set XR to be initialized on startup via Project Settings > XR Plug-in Management > Initialize XR on Startup. Also ensure that "OpenVR Loader" and "OpenXR" are checkmarked.
-
-3) Initialize the SteamVR Input system via Window > SteamVR Input by clicking "Save and generate".
-
-4) Run the 'universal_patcher.py' script to patch installed dependencies.
-
-5) If any errors with dependencies are spotted, run Assets > Reimport All.
+2) Configure the above assets and other dependencies:
+	- Set XR to be initialized on startup via Edit > Project Settings > XR Plug-in Management > Initialize XR on Startup. Also ensure that "OpenVR Loader" and "OpenXR" are checkmarked.
+	- Initialize the SteamVR Input system via Window > SteamVR Input by clicking "Save and generate".
 
 # Attribution
 This project is licensed under the Apache License 2.0. 

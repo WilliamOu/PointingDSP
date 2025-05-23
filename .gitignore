@@ -13,8 +13,6 @@
 /.plastic/
 
 # Asset Store Plugins
-/[Aa]ssets/[Cc]ybSDK/
-/[Aa]ssets/[Cc]ybSDK.meta/
 /[Aa]ssets/[Pp]lugins/
 /[Aa]ssets/[Qq]uick[Oo]utline/
 /[Aa]ssets/[Qq]uick[Oo]utline.meta
