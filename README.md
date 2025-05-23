@@ -30,12 +30,13 @@ In adherence with the Unity Asset Store Terms of Service, which prohibits the re
         - Quick Outline
         - SteamVR Plugin
 		
-    - After installing all assets, the project should safely compile out of safe mode. Restart the editor if not already prompted. 
-	- If any errors with dependencies are spotted, run Assets > Reimport All.
+    - After installing all assets, restart the editor. Ensure that the project does not enter safe mode so that the following steps may be performed.
 
 2) Configure the above assets and other dependencies:
 	- Set XR to be initialized on startup via Edit > Project Settings > XR Plug-in Management > Initialize XR on Startup. Also ensure that "OpenVR Loader" and "OpenXR" are checkmarked.
 	- Initialize the SteamVR Input system via Window > SteamVR Input by clicking "Save and generate".
+
+If any errors with dependencies are spotted at this point, run Assets > Reimport All.
 
 # Attribution
 This project is licensed under the Apache License 2.0. 
