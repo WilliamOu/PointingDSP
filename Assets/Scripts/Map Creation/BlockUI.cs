@@ -294,8 +294,11 @@ public class BlockUI : MonoBehaviour
         int z1 = Mathf.Min(zFromVal, zToVal);
         int z2 = Mathf.Max(zFromVal, zToVal);
 
+        Vector3 v1 = new Vector3(x1, y1, z1) + new Vector3(VoxelData.WorldOffset, 0, VoxelData.WorldOffset);
+        Vector3 v2 = new Vector3(x2, y2, z2) + new Vector3(VoxelData.WorldOffset, 0, VoxelData.WorldOffset);
+
         // 3) World bounds check for BOTH corners (inclusive)
-        if (!IsWithinWorldBounds(x1, y1, z1, x2, y2, z2))
+        if (!IsWithinWorldBounds(v1.x, v1.y, v1.z, v2.x, v2.y, v2.z))
         {
             writeMessage = StartCoroutine(WriteErrorMessage("Cannot write outside of world bounds"));
             return;
@@ -317,35 +320,21 @@ public class BlockUI : MonoBehaviour
         }
 
         // 5) Apply
-        for (int x = x1; x <= x2; x++)
-        {
-            for (int y = y1; y <= y2; y++)
-            {
-                for (int z = z1; z <= z2; z++)
-                {
-                    // Bad practice to mix types, but I believe the block count is hard capped at 256
-                    Vector3 pos = new Vector3(x, y, z) + new Vector3(VoxelData.WorldOffset, 0, VoxelData.WorldOffset);
-                    if (spawn) 
-                        PlaceBlock(pos, (byte)blockId);
-                    else 
-                        DeleteBlock(pos);
-                }
-            }
-        }
+        world.FastBatchEdit(v1, v2, (byte)blockId, spawn);
     }
 
-    private bool IsWithinWorldBounds(int x1, int y1, int z1, int x2, int y2, int z2)
+    private bool IsWithinWorldBounds(float x1, float y1, float z1, float x2, float y2, float z2)
     {
-        bool InX(int v) => v >= 0 && v < WorldWidthInBlocks;
-        bool InY(int v) => v >= 0 && v < WorldHeightInBlocks;
-        bool InZ(int v) => v >= 0 && v < WorldWidthInBlocks;
+        bool InX(float v) => v >= 0 && v < WorldWidthInBlocks;
+        bool InY(float v) => v >= 0 && v < WorldHeightInBlocks;
+        bool InZ(float v) => v >= 0 && v < WorldWidthInBlocks;
 
         return InX(x1) && InX(x2) &&
                InY(y1) && InY(y2) &&
                InZ(z1) && InZ(z2);
     }
 
-    private void PlaceBlock(Vector3 pos, byte blockId)
+    /*private void PlaceBlock(Vector3 pos, byte blockId)
     {
         world.GetChunkFromVector3(pos).EditVoxel(pos, blockId);
         worldSave.AddBlock(pos.x, pos.y, pos.z, blockId);
@@ -355,7 +344,7 @@ public class BlockUI : MonoBehaviour
     {
         world.GetChunkFromVector3(pos).EditVoxel(pos, 0);
         worldSave.RemoveBlock(pos.x, pos.y, pos.z);
-    }
+    }*/
 
 
     private IEnumerator ResetDeleteButtonPressed()

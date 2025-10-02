@@ -30,6 +30,9 @@ public class World : MonoBehaviour
     private List<ChunkCoord> chunksToCreate = new List<ChunkCoord>();
     // private bool isCreatingChunks;
 
+    private readonly HashSet<Chunk> _dirtyChunks = new HashSet<Chunk>();
+    private bool _inBatch = false;
+
     private void Awake()
     {
         playerLastChunkCoord = GetChunkCoordFromVector3(player.position);
@@ -107,6 +110,114 @@ public class World : MonoBehaviour
         }*/
     }
 
+    public void FastBatchEdit(Vector3Int min, Vector3Int max, byte blockId, bool spawn)
+    {
+        Vector3 v1 = new Vector3(min.x, min.y, min.z);
+        Vector3 v2 = new Vector3(max.x, max.y, max.z);
+        FastBatchEdit(v1, v2, blockId, spawn);
+    }
+
+    public void FastBatchEdit(Vector3 v1, Vector3 v2, byte blockId, bool spawn)
+    {
+        // Ensure v1 is the min corner and v2 is the max corner
+        int x1 = Mathf.FloorToInt(Mathf.Min(v1.x, v2.x));
+        int y1 = Mathf.FloorToInt(Mathf.Min(v1.y, v2.y));
+        int z1 = Mathf.FloorToInt(Mathf.Min(v1.z, v2.z));
+        int x2 = Mathf.FloorToInt(Mathf.Max(v1.x, v2.x));
+        int y2 = Mathf.FloorToInt(Mathf.Max(v1.y, v2.y));
+        int z2 = Mathf.FloorToInt(Mathf.Max(v1.z, v2.z));
+
+        BeginEditBatch();
+
+        for (int x = x1; x <= x2; x++)
+        {
+            for (int y = y1; y <= y2; y++)
+            {
+                for (int z = z1; z <= z2; z++)
+                {
+                    Vector3 pos = new Vector3(x, y, z);
+
+                    Chunk c = GetChunkFromVector3(pos);
+                    if (c == null) continue;
+
+                    if (spawn)
+                    {
+                        c.EditVoxelNoRebuild(pos, blockId);
+                        worldSave.AddBlock(x, y, z, blockId);
+                    }
+                    else
+                    {
+                        c.EditVoxelNoRebuild(pos, 0);
+                        worldSave.RemoveBlock(x, y, z);
+                    }
+
+                    // Register the chunk + neighbor chunks for rebuild
+                    MarkDirtyFromWorldPos(pos);
+                }
+            }
+        }
+
+        EndEditBatch();
+    }
+
+    public void BeginEditBatch()
+    {
+        _inBatch = true;
+        _dirtyChunks.Clear();
+    }
+
+    public void EndEditBatch()
+    {
+        // Rebuild each dirty chunk once.
+        foreach (var c in _dirtyChunks)
+            c.UpdateChunk();
+
+        _dirtyChunks.Clear();
+        _inBatch = false;
+    }
+
+    // Mark a chunk and (if needed) its edge neighbors dirty based on world position.
+    public void MarkDirtyFromWorldPos(Vector3 worldPos)
+    {
+        var chunk = GetChunkFromVector3(worldPos);
+        if (chunk == null) return;
+
+        _dirtyChunks.Add(chunk);
+
+        // Figure out local voxel coords to see if we're on an edge.
+        int wx = Mathf.FloorToInt(worldPos.x);
+        int wy = Mathf.FloorToInt(worldPos.y);
+        int wz = Mathf.FloorToInt(worldPos.z);
+
+        int cx = Mathf.FloorToInt(worldPos.x / VoxelData.ChunkWidth);
+        int cz = Mathf.FloorToInt(worldPos.z / VoxelData.ChunkWidth);
+
+        int localX = wx - Mathf.FloorToInt(chunk.GetChunkObject().transform.position.x);
+        int localZ = wz - Mathf.FloorToInt(chunk.GetChunkObject().transform.position.z);
+
+        // Neighbor chunks in X/Z if edit touches the border.
+        if (localX == 0) TryAddChunk(cx - 1, cz);
+        if (localX == VoxelData.ChunkWidth - 1) TryAddChunk(cx + 1, cz);
+        if (localZ == 0) TryAddChunk(cx, cz - 1);
+        if (localZ == VoxelData.ChunkWidth - 1) TryAddChunk(cx, cz + 1);
+    }
+
+    private void TryAddChunk(int cx, int cz)
+    {
+        if (cx < 0 || cz < 0 || cx >= VoxelData.WorldSizeInChunks || cz >= VoxelData.WorldSizeInChunks)
+            return;
+        var neighbor = chunks[cx, cz];
+        if (neighbor != null) _dirtyChunks.Add(neighbor);
+    }
+
+    // Let chunks ask whether to rebuild immediately or defer.
+    public void MaybeUpdateOrMarkDirty(Chunk c)
+    {
+        if (_inBatch) _dirtyChunks.Add(c);
+        else c.UpdateChunk();
+    }
+
+
     private bool IsChunkInWorld(ChunkCoord coord)
     {
         if (coord.x > 0 && coord.x < VoxelData.WorldSizeInChunks - 1 && coord.z > 0 && coord.z < VoxelData.WorldSizeInChunks - 1)
@@ -163,7 +274,6 @@ public class World : MonoBehaviour
 
         return blocktypes[GetVoxel(pos)].isTransparent;
     }
-
 
     public byte GetVoxel(Vector3 pos)
     {

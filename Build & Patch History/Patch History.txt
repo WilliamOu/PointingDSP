@@ -2,6 +2,11 @@
 Patch History For PointingDSP
 =============================
 
+Version 1.4.1.0 - Oct 2, 2025
+- Fixed a bug resulting in an incorrect boundary check for the Block UI's block placement ability.
+- Signficantly improved the runtime of batch-based block placing.
+- Adjusted the first person camera's block placement ability to allow batch placement rather than forcing single block placements per click.
+
 Version 1.4.0.0 - Oct 1, 2025
 - Improved UI elements on the Title Screen to be more accessible.
 - Added the ability to spawn blocks within an x, y, z range from the blocks menu to make large structures easier to build.

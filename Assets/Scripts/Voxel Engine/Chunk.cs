@@ -53,6 +53,11 @@ public class Chunk
         UpdateChunk();
     }
 
+    public GameObject GetChunkObject()
+    {
+        return chunkObject;
+    }
+
     private void PopulateVoxelMap()
     {
         for (int y = 0; y < VoxelData.ChunkHeight; y++)
@@ -69,7 +74,7 @@ public class Chunk
         isVoxelMapPopulated = true;
     }
 
-    private void UpdateChunk()
+    public void UpdateChunk()
     {
         ClearMeshData();
 
@@ -134,6 +139,18 @@ public class Chunk
         UpdateSurroundingVoxels(xCheck, yCheck, zCheck);
 
         UpdateChunk();
+    }
+
+    public void EditVoxelNoRebuild(Vector3 worldPos, byte newID)
+    {
+        int xi = Mathf.FloorToInt(worldPos.x) - Mathf.FloorToInt(chunkObject.transform.position.x);
+        int yi = Mathf.FloorToInt(worldPos.y);
+        int zi = Mathf.FloorToInt(worldPos.z) - Mathf.FloorToInt(chunkObject.transform.position.z);
+
+        // Idempotency guard (skip if no change)
+        if (voxelMap[xi, yi, zi] == newID) return;
+
+        voxelMap[xi, yi, zi] = newID;
     }
 
     void UpdateSurroundingVoxels(int x, int y, int z)
