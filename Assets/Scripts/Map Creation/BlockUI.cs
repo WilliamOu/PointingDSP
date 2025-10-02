@@ -9,6 +9,7 @@ public class BlockUI : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown blockDropdown;
     [SerializeField] private World world;
+    [SerializeField] private WorldSave worldSave;
 
     [SerializeField] private TMP_InputField blockNameInputField;
     [SerializeField] private Toggle isSolidToggle;
@@ -22,6 +23,18 @@ public class BlockUI : MonoBehaviour
     [SerializeField] private Button addButton;
     [SerializeField] private Button deleteButton;
     [SerializeField] private TMP_Text errorField;
+
+    [SerializeField] private TMP_InputField xFrom;
+    [SerializeField] private TMP_InputField yFrom;
+    [SerializeField] private TMP_InputField zFrom;
+    [SerializeField] private TMP_InputField xTo;
+    [SerializeField] private TMP_InputField yTo;
+    [SerializeField] private TMP_InputField zTo;
+    [SerializeField] private Button spawnButton;
+    [SerializeField] private Button despawnButton;
+
+    private static int WorldWidthInBlocks => VoxelData.WorldSizeInChunks * VoxelData.ChunkWidth;
+    private static int WorldHeightInBlocks => VoxelData.ChunkHeight;
 
     private Coroutine writeMessage;
     private Coroutine resetDelete;
@@ -53,6 +66,9 @@ public class BlockUI : MonoBehaviour
 
         addButton.onClick.AddListener(OnAddButtonClicked);
         deleteButton.onClick.AddListener(OnDeleteButtonClicked);
+
+        spawnButton.onClick.AddListener(OnSpawnButtonClicked);
+        despawnButton.onClick.AddListener(OnDespawnButtonClicked);
     }
 
     public void InitializeFirstValue()
@@ -241,6 +257,106 @@ public class BlockUI : MonoBehaviour
             resetDelete = StartCoroutine(ResetDeleteButtonPressed());
         }
     }
+
+    private void OnSpawnButtonClicked()
+    {
+        handleBlockSpawn(true);
+    }
+
+    private void OnDespawnButtonClicked()
+    {
+        handleBlockSpawn(false);
+    }
+
+    private void handleBlockSpawn(bool spawn)
+    {
+        // 1) Parse numbers
+        int xFromVal, xToVal, yFromVal, yToVal, zFromVal, zToVal;
+        bool ok = true;
+        ok &= int.TryParse(xFrom.text, out xFromVal);
+        ok &= int.TryParse(xTo.text, out xToVal);
+        ok &= int.TryParse(yFrom.text, out yFromVal);
+        ok &= int.TryParse(yTo.text, out yToVal);
+        ok &= int.TryParse(zFrom.text, out zFromVal);
+        ok &= int.TryParse(zTo.text, out zToVal);
+
+        if (!ok)
+        {
+            writeMessage = StartCoroutine(WriteErrorMessage("At least one of the fields is not an integer."));
+            return;
+        }
+
+        // 2) Normalize ranges
+        int x1 = Mathf.Min(xFromVal, xToVal);
+        int x2 = Mathf.Max(xFromVal, xToVal);
+        int y1 = Mathf.Min(yFromVal, yToVal);
+        int y2 = Mathf.Max(yFromVal, yToVal);
+        int z1 = Mathf.Min(zFromVal, zToVal);
+        int z2 = Mathf.Max(zFromVal, zToVal);
+
+        // 3) World bounds check for BOTH corners (inclusive)
+        if (!IsWithinWorldBounds(x1, y1, z1, x2, y2, z2))
+        {
+            writeMessage = StartCoroutine(WriteErrorMessage("Cannot write outside of world bounds"));
+            return;
+        }
+
+        // 4) Resolve currently selected block id
+        int ddIndex = blockDropdown.value;
+        if (ddIndex < 0 || ddIndex >= dropdownToBlockIndex.Count)
+        {
+            writeMessage = StartCoroutine(WriteErrorMessage("No block type selected."));
+            return;
+        }
+        int blockId = dropdownToBlockIndex[ddIndex];
+
+        if (spawn && world.blocktypes[blockId].blockName == "%%DELETED_BLOCK%%")
+        {
+            writeMessage = StartCoroutine(WriteErrorMessage("Cannot place a deleted block type."));
+            return;
+        }
+
+        // 5) Apply
+        for (int x = x1; x <= x2; x++)
+        {
+            for (int y = y1; y <= y2; y++)
+            {
+                for (int z = z1; z <= z2; z++)
+                {
+                    // Bad practice to mix types, but I believe the block count is hard capped at 256
+                    Vector3 pos = new Vector3(x, y, z) + new Vector3(VoxelData.WorldOffset, 0, VoxelData.WorldOffset);
+                    if (spawn) 
+                        PlaceBlock(pos, (byte)blockId);
+                    else 
+                        DeleteBlock(pos);
+                }
+            }
+        }
+    }
+
+    private bool IsWithinWorldBounds(int x1, int y1, int z1, int x2, int y2, int z2)
+    {
+        bool InX(int v) => v >= 0 && v < WorldWidthInBlocks;
+        bool InY(int v) => v >= 0 && v < WorldHeightInBlocks;
+        bool InZ(int v) => v >= 0 && v < WorldWidthInBlocks;
+
+        return InX(x1) && InX(x2) &&
+               InY(y1) && InY(y2) &&
+               InZ(z1) && InZ(z2);
+    }
+
+    private void PlaceBlock(Vector3 pos, byte blockId)
+    {
+        world.GetChunkFromVector3(pos).EditVoxel(pos, blockId);
+        worldSave.AddBlock(pos.x, pos.y, pos.z, blockId);
+    }
+
+    private void DeleteBlock(Vector3 pos)
+    {
+        world.GetChunkFromVector3(pos).EditVoxel(pos, 0);
+        worldSave.RemoveBlock(pos.x, pos.y, pos.z);
+    }
+
 
     private IEnumerator ResetDeleteButtonPressed()
     {

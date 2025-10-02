@@ -23,6 +23,24 @@ public class ObjectUI : MonoBehaviour
     private Outline outline;
     private GameObject colliderVisualizer;
 
+    private struct ObjRef { public bool isTrial; public int idx; }
+    private List<ObjRef> flatIndex = new List<ObjRef>();
+
+    private GameObject GetParentAt(int flat)
+    {
+        return flatIndex[flat].isTrial ? worldSave.modelParents[flatIndex[flat].idx]
+                                       : worldSave.nonTrialParents[flatIndex[flat].idx];
+    }
+    private GameObject GetNestedAt(int flat)
+    {
+        return flatIndex[flat].isTrial ? worldSave.modelNested[flatIndex[flat].idx]
+                                       : worldSave.nonTrialNested[flatIndex[flat].idx];
+    }
+    private BoxCollider GetColliderAt(int flat)
+    {
+        return GetParentAt(flat).GetComponent<BoxCollider>();
+    }
+
     public void InitializeList()
     {
         objectDropdown.ClearOptions();
@@ -36,8 +54,6 @@ public class ObjectUI : MonoBehaviour
         else
         {
             uiBase.VoidObjectAndTrialUIs();
-            /*List<string> noOptions = new List<string> { "[NO OBJECTS]" };
-            objectDropdown.AddOptions(noOptions);*/
         }
 
         positionInputField.onValueChanged.AddListener(value => OnInputFieldChanged(value, "position"));
@@ -57,11 +73,23 @@ public class ObjectUI : MonoBehaviour
 
     private void PopulateDropdown()
     {
+        flatIndex.Clear();
         List<string> options = new List<string>();
+
+        // 1) trial objects
         for (int i = 0; i < worldSave.modelParents.Count; i++)
         {
             options.Add(worldSave.modelParents[i].name);
+            flatIndex.Add(new ObjRef { isTrial = true, idx = i });
         }
+
+        // 2) non-trial objects, with suffix to distinguish in UI
+        for (int i = 0; i < worldSave.nonTrialParents.Count; i++)
+        {
+            options.Add("[NON-TRIAL] " + worldSave.nonTrialParents[i].name);
+            flatIndex.Add(new ObjRef { isTrial = false, idx = i });
+        }
+
         objectDropdown.AddOptions(options);
     }
 
@@ -74,14 +102,15 @@ public class ObjectUI : MonoBehaviour
 
     private void LoadModelData(int index)
     {
-        currentlySelectedModel = worldSave.modelParents[index];
-        boxCollider = worldSave.modelParents[index].GetComponent<BoxCollider>();
-        positionInputField.text = uiBase.FormatVector3(worldSave.modelParents[index].transform.position - new Vector3(VoxelData.WorldOffset, 0, VoxelData.WorldOffset));
-        rotationInputField.text = uiBase.FormatQuaternion(worldSave.modelParents[index].transform.rotation);
-        scaleInputField.text = uiBase.FormatVector3(worldSave.modelParents[index].transform.localScale);
-        relativePositionInputField.text = uiBase.FormatVector3(worldSave.modelNested[index].transform.localPosition);
-        relativeRotationInputField.text = uiBase.FormatQuaternion(worldSave.modelNested[index].transform.localRotation);
-        relativeScaleInputField.text = uiBase.FormatVector3(worldSave.modelNested[index].transform.localScale);
+        currentlySelectedModel = GetParentAt(index);
+        boxCollider = GetColliderAt(index);
+
+        positionInputField.text = uiBase.FormatVector3(GetParentAt(index).transform.position - new Vector3(VoxelData.WorldOffset, 0, VoxelData.WorldOffset));
+        rotationInputField.text = uiBase.FormatQuaternion(GetParentAt(index).transform.rotation);
+        scaleInputField.text = uiBase.FormatVector3(GetParentAt(index).transform.localScale);
+        relativePositionInputField.text = uiBase.FormatVector3(GetNestedAt(index).transform.localPosition);
+        relativeRotationInputField.text = uiBase.FormatQuaternion(GetNestedAt(index).transform.localRotation);
+        relativeScaleInputField.text = uiBase.FormatVector3(GetNestedAt(index).transform.localScale);
         hitboxPositionInputField.text = uiBase.FormatVector3(boxCollider.center);
         hitboxScaleInputField.text = uiBase.FormatVector3(boxCollider.size);
     }
@@ -95,34 +124,34 @@ public class ObjectUI : MonoBehaviour
             switch (fieldType)
             {
                 case "position":
-                    worldSave.modelParents[index].transform.position = result + new Vector3(VoxelData.WorldOffset, 0, VoxelData.WorldOffset);
+                    GetParentAt(index).transform.position = result + new Vector3(VoxelData.WorldOffset, 0, VoxelData.WorldOffset);
                     break;
                 case "rotation":
-                    worldSave.modelParents[index].transform.rotation = Quaternion.Euler(result);
+                    GetParentAt(index).transform.rotation = Quaternion.Euler(result);
                     break;
                 case "scale":
-                    worldSave.modelParents[index].transform.localScale = result;
+                    GetParentAt(index).transform.localScale = result;
                     break;
                 case "relativePosition":
-                    worldSave.modelNested[index].transform.localPosition = result;
+                    GetNestedAt(index).transform.localPosition = result;
                     break;
                 case "relativeRotation":
-                    worldSave.modelNested[index].transform.localRotation = Quaternion.Euler(result);
+                    GetNestedAt(index).transform.localRotation = Quaternion.Euler(result);
                     break;
                 case "relativeScale":
-                    worldSave.modelNested[index].transform.localScale = result;
+                    GetNestedAt(index).transform.localScale = result;
                     break;
                 case "hitboxPosition":
-                    worldSave.modelParents[index].GetComponent<BoxCollider>().center = result;
+                    GetColliderAt(index).center = result;
                     break;
                 case "hitboxScale":
-                    worldSave.modelParents[index].GetComponent<BoxCollider>().size = result;
+                    GetColliderAt(index).size = result;
                     break;
             }
             if (uiBase.CurrentMenu == 2) { uiBase.DrawBoxColliderOutline(boxCollider); }
         }
     }
-    
+
     public void AddHighlight()
     {
         if (currentlySelectedModel == null || currentlySelectedModel.GetComponent<Outline>() != null) { return; }
@@ -144,8 +173,8 @@ public class ObjectUI : MonoBehaviour
     public void UpdatePrimaryTransformUI()
     {
         int index = objectDropdown.value;
-        positionInputField.text = uiBase.FormatVector3(worldSave.modelParents[index].transform.position - new Vector3(VoxelData.WorldOffset, 0, VoxelData.WorldOffset));
-        rotationInputField.text = uiBase.FormatQuaternion(worldSave.modelParents[index].transform.rotation);
-        scaleInputField.text = uiBase.FormatVector3(worldSave.modelParents[index].transform.localScale);
+        positionInputField.text = uiBase.FormatVector3(GetParentAt(index).transform.position - new Vector3(VoxelData.WorldOffset, 0, VoxelData.WorldOffset));
+        rotationInputField.text = uiBase.FormatQuaternion(GetParentAt(index).transform.rotation);
+        scaleInputField.text = uiBase.FormatVector3(GetParentAt(index).transform.localScale);
     }
 }

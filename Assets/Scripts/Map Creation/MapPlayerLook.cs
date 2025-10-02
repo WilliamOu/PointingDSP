@@ -9,24 +9,19 @@ public class MapPlayerLook : MonoBehaviour
 
     [SerializeField] private TMP_Text selectedBlockText;
     [SerializeField] private WorldSave worldSave;
+    [SerializeField] private World world;
     [SerializeField] private Transform playerBody;
     [SerializeField] private Transform mapCamera;
     [SerializeField] private MapPlayer mapPlayer;
 
     [SerializeField] private Transform highlightBlock;
     [SerializeField] private Transform placeBlock;
-    private World world;
 
     private byte selectedBlockIndex = 1;
     private float checkIncrement = 0.1f;
     private float reach = 8f;
     private float xRotation = 0f;
     private bool canDestroy = false;
-
-    void Start()
-    {
-        world = GameObject.Find("World").GetComponent<World>();
-    }
 
     void Update()
     {

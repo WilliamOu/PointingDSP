@@ -284,6 +284,8 @@ public class WorldSave : MonoBehaviour
     public Dictionary<SerializableVector3, BlockData> blockDataMap = new Dictionary<SerializableVector3, BlockData>();
     public List<GameObject> modelParents = new List<GameObject>();
     public List<GameObject> modelNested = new List<GameObject>();
+    public List<GameObject> nonTrialParents = new List<GameObject>();
+    public List<GameObject> nonTrialNested = new List<GameObject>();
     public List<CSVData> csvData = new List<CSVData>();
     public List<GameObject> invisibleArrows = new List<GameObject>();
     public List<GameObject> arrows = new List<GameObject>();
@@ -358,13 +360,26 @@ public class WorldSave : MonoBehaviour
 
     public void SaveModelData()
     {
-        for (int i = 0; i < modelParents.Count; i++)
+        // original behavior for trial objects
+        SaveModelDataTo("Models", modelParents, modelNested);
+
+        // new: also persist Non-trial models
+        SaveModelDataTo("Non-trial Models", nonTrialParents, nonTrialNested);
+    }
+
+    private void SaveModelDataTo(string folderName, List<GameObject> parents, List<GameObject> nested)
+    {
+        string basePath = Path.Combine(mapPath, folderName);
+        Directory.CreateDirectory(basePath);
+
+        for (int i = 0; i < parents.Count; i++)
         {
-            GameObject parentObject = modelParents[i];
-            GameObject nestedObject = modelNested[i];
+            GameObject parentObject = parents[i];
+            GameObject nestedObject = nested[i];
 
             string directoryName = parentObject.name;
-            string directoryPath = Path.Combine(mapPath, "Models", directoryName);
+            string directoryPath = Path.Combine(basePath, directoryName);
+            Directory.CreateDirectory(directoryPath);
             string modelDataPath = Path.Combine(directoryPath, "model.dat");
 
             ModelData modelData = new ModelData
@@ -382,7 +397,7 @@ public class WorldSave : MonoBehaviour
                 }
             };
 
-            BinaryFormatter bf = new BinaryFormatter();
+            var bf = new BinaryFormatter();
             using (FileStream file = File.Create(modelDataPath))
             {
                 bf.Serialize(file, modelData);
@@ -392,23 +407,29 @@ public class WorldSave : MonoBehaviour
 
     public async Task LoadModelData()
     {
-        string modelsPath = Path.Combine(mapPath, "Models");
-        if (!Directory.Exists(modelsPath))
-        {
-            Directory.CreateDirectory(modelsPath);
-        }
+        // 1) Trial-eligible Models
+        await LoadModelsFromFolder("Models", includeInTrials: true);
 
-        var files = Directory.GetDirectories(modelsPath);
-        foreach (var file in files)
-        {
-            await LoadModel(file);
-        }
+        // 2) Non-trial Models
+        await LoadModelsFromFolder("Non-trial Models", includeInTrials: false);
 
         if (inMapCreation) { objectUI.InitializeList(); }
         else { MapManager.Instance.PostInitialization(); }
     }
 
-    private async Task LoadModel(string directoryPath)
+    private async Task LoadModelsFromFolder(string folderName, bool includeInTrials)
+    {
+        string basePath = Path.Combine(mapPath, folderName);
+        if (!Directory.Exists(basePath)) Directory.CreateDirectory(basePath);
+
+        var dirs = Directory.GetDirectories(basePath);
+        foreach (var dir in dirs)
+        {
+            await LoadModel(dir, includeInTrials);
+        }
+    }
+
+    private async Task LoadModel(string directoryPath, bool includeInTrials)
     {
         string directoryName = Path.GetFileName(directoryPath);
         GameObject parentObject = new GameObject(directoryName);
@@ -416,21 +437,27 @@ public class WorldSave : MonoBehaviour
 
         parentObject.transform.SetParent(mapObjects.transform);
         nestedObject.transform.SetParent(parentObject.transform);
-        modelParents.Add(parentObject);
-        modelNested.Add(nestedObject);
+
+        // add to the right list
+        if (includeInTrials)
+        {
+            modelParents.Add(parentObject);
+            modelNested.Add(nestedObject);
+        }
+        else
+        {
+            nonTrialParents.Add(parentObject);
+            nonTrialNested.Add(nestedObject);
+        }
 
         if (inMapCreation) { parentObject.tag = "Draggable"; }
 
         var gltfFiles = Directory.GetFiles(directoryPath, "*.gltf");
-        if (gltfFiles.Length == 0)
+        if (gltfFiles.Length != 1)
         {
-            Debug.LogError("No .gltf file found in directory: " + directoryPath);
-            Destroy(parentObject);
-            return;
-        }
-        else if (gltfFiles.Length != 1)
-        {
-            Debug.LogError("You have too many .gltf files in this directory. Place one model in directory: " + directoryPath);
+            Debug.LogError(gltfFiles.Length == 0
+                ? "No .gltf file found in directory: " + directoryPath
+                : "You have too many .gltf files in this directory. Place one model in directory: " + directoryPath);
             Destroy(parentObject);
             return;
         }
@@ -441,19 +468,17 @@ public class WorldSave : MonoBehaviour
         if (await gltf.Load(gltfFiles[0]))
         {
             await gltf.InstantiateMainSceneAsync(nestedObject.transform);
-            // OptimizeMesh(nestedObject);
 
             BoxCollider collider = parentObject.AddComponent<BoxCollider>();
-            collider.isTrigger = true;
+            //  - Trial objects keep trigger colliders
+            //  - Non-trial Models get solid colliders (so that non-voxel based geometry can have hitboxes)
+            collider.isTrigger = includeInTrials; // true for trials, false for non-trial
 
-            Rigidbody rigidbody = parentObject.AddComponent<Rigidbody>();
-            rigidbody.useGravity = false;
-            rigidbody.isKinematic = true;
+            Rigidbody rb = parentObject.AddComponent<Rigidbody>();
+            rb.useGravity = false;
+            rb.isKinematic = true;
 
-            Vector3 relativePosition = nestedObject.transform.localPosition;
-            Quaternion relativeRotation = nestedObject.transform.localRotation;
-            Vector3 relativeScale = nestedObject.transform.localScale;
-
+            // load or create model.dat
             string modelDataPath = Path.Combine(directoryPath, "model.dat");
             ModelData modelData;
             if (!File.Exists(modelDataPath))
@@ -463,9 +488,9 @@ public class WorldSave : MonoBehaviour
                     position = parentObject.transform.position,
                     rotation = parentObject.transform.rotation,
                     scale = parentObject.transform.localScale,
-                    relativePosition = relativePosition,
-                    relativeRotation = relativeRotation,
-                    relativeScale = relativeScale,
+                    relativePosition = nestedObject.transform.localPosition,
+                    relativeRotation = nestedObject.transform.localRotation,
+                    relativeScale = nestedObject.transform.localScale,
                     colliderData = new BoxColliderData
                     {
                         center = collider.center,
@@ -475,13 +500,11 @@ public class WorldSave : MonoBehaviour
             }
             else
             {
-                // Deserialize the model.dat file
-                BinaryFormatter bf = new BinaryFormatter();
+                var bf = new BinaryFormatter();
                 using (FileStream file = File.Open(modelDataPath, FileMode.Open))
                 {
                     modelData = (ModelData)bf.Deserialize(file);
                 }
-
                 parentObject.transform.position = modelData.position;
                 parentObject.transform.rotation = modelData.rotation;
                 parentObject.transform.localScale = modelData.scale;
