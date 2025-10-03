@@ -1,7 +1,10 @@
 # Pointing Dual Solution Paradigm
-PointingDSP is an open-source project initially developed for the Hegarty Spatial Thinking Lab at the University of California, Santa Barbara, designed to facilitate research on spatial reasoning through an interactive maze-navigation task.
 *A demonstration of the wayfinding segment on desktop, with the Pointsearch (combined point and wayfind stages) and Nearsight options enabled. For a demonstration of the map creation tool, see Presets and Map Creation*
-![Pointsearch](https://github.com/WilliamOu/PointingDSP/blob/main/Media/Pointsearch.gif)
+<video src="https://github.com/WilliamOu/PointingDSP/raw/main/Media/Pointsearch.mp4" 
+       width="600" autoplay loop muted playsinline>
+</video>
+
+PointingDSP is an open-source project initially developed for the Hegarty Spatial Thinking Lab at the University of California, Santa Barbara, designed to facilitate research on spatial reasoning through an interactive maze-navigation task.
 
 The most up-to-date build of the study may be found under 'Build & Patch History/', which contains the setup for conducting the original study (refer to "Original Gamemodes & Objectives" for details). Download of the entire repository for the source code is only necessary for those interested in modifying or expanding the study (see "Source Code & Unity Asset Store Policy" for instructions on how to rebuild the project).
 
@@ -13,7 +16,7 @@ The study supports three different gameplay modes:
 
 Each mode logs participant data, with VR modes capturing additional details, such as eye-tracking data. 
 
-While in the study, participants progress through the following stages:
+For VR modes, an opening/title stage exists to provide participants time to acclimate to a VR environment, and optionally for the test administrator to adjust study parameters. While in the study, participants progress through the following stages:
 - Training Stage: Participants familiarize themselves with the controls of their respective mode.
 - Learning Stage: Participants navigate a maze circuit to learn its layout.
 - Retracing Stage: Participants retrace the exact path they took during the Learning Stage.
@@ -22,7 +25,9 @@ While in the study, participants progress through the following stages:
 
 # Presets and Map Creation
 *A demonstration recreating the default map in the map creation tool*
-![Map Creation](https://github.com/WilliamOu/PointingDSP/blob/main/Media/MapCreation.gif)
+<video src="https://github.com/WilliamOu/PointingDSP/raw/main/Media/MapCreation.mp4" 
+       width="600" autoplay loop muted playsinline>
+</video>
 
 A wide array of parameters and settings can be adjusted and saved as presets, allowing for flexible customization of the study's style and structure.
 Additionally, PointingDSP offers tools for creating custom maps, a hybrid build featuring a sandbox-like voxel engine supporting everything from custom block types to custom trial lists and the importing of 3D models in real-time.
