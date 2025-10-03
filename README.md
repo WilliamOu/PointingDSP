@@ -1,5 +1,7 @@
 # Pointing Dual Solution Paradigm
 PointingDSP is an open-source project initially developed for the Hegarty Spatial Thinking Lab at the University of California, Santa Barbara, designed to facilitate research on spatial reasoning through an interactive maze-navigation task.
+*A demonstration of the wayfinding segment on desktop, with the Pointsearch (combined point and wayfind stages) and Nearsight options enabled. For a demonstration of the map creation tool, see Presets and Map Creation*
+![Pointsearch](https://github.com/WilliamOu/PointingDSP/blob/main/Media/Pointsearch.gif)
 
 The most up-to-date build of the study may be found under 'Build & Patch History/', which contains the setup for conducting the original study (refer to "Original Gamemodes & Objectives" for details). Download of the entire repository for the source code is only necessary for those interested in modifying or expanding the study (see "Source Code & Unity Asset Store Policy" for instructions on how to rebuild the project).
 
@@ -19,6 +21,9 @@ While in the study, participants progress through the following stages:
 - Wayfinding Stage: Participants navigate randomized trials to locate the prompted objects.
 
 # Presets and Map Creation
+*A demonstration recreating the default map in the map creation tool*
+![Map Creation](https://github.com/WilliamOu/PointingDSP/blob/main/Media/MapCreation.gif)
+
 A wide array of parameters and settings can be adjusted and saved as presets, allowing for flexible customization of the study's style and structure.
 Additionally, PointingDSP offers tools for creating custom maps, a hybrid build featuring a sandbox-like voxel engine supporting everything from custom block types to custom trial lists and the importing of 3D models in real-time.
 
