@@ -1,8 +1,6 @@
 # Pointing Dual Solution Paradigm
-*A demonstration of the wayfinding segment on desktop, with the Pointsearch (combined point and wayfind stages) and Nearsight options enabled. For a demonstration of the map creation tool, see Presets and Map Creation*
-<video src="https://github.com/WilliamOu/PointingDSP/raw/main/Media/Pointsearch.mp4" 
-       width="600" autoplay loop muted playsinline>
-</video>
+*A video demonstration of the wayfinding segment on desktop, with the Pointsearch (combined pointing and wayfinding stages) and Nearsight options enabled. For a demonstration of the map creation tool, see Presets and Map Creation*
+[![Pointsearch demo](https://github.com/WilliamOu/PointingDSP/raw/main/Media/Pointsearch.png)](https://github.com/WilliamOu/PointingDSP/raw/main/Media/Pointsearch.mp4)
 
 PointingDSP is an open-source project initially developed for the Hegarty Spatial Thinking Lab at the University of California, Santa Barbara, designed to facilitate research on spatial reasoning through an interactive maze-navigation task.
 
@@ -24,10 +22,8 @@ For VR modes, an opening/title stage exists to provide participants time to accl
 - Wayfinding Stage: Participants navigate randomized trials to locate the prompted objects.
 
 # Presets and Map Creation
-*A demonstration recreating the default map in the map creation tool*
-<video src="https://github.com/WilliamOu/PointingDSP/raw/main/Media/MapCreation.mp4" 
-       width="600" autoplay loop muted playsinline>
-</video>
+*A video demonstration recreating the default map in the map creation tool*
+[![Map Creation demo](https://github.com/WilliamOu/PointingDSP/raw/main/Media/MapCreation.png)](https://github.com/WilliamOu/PointingDSP/raw/main/Media/MapCreation.mp4)
 
 A wide array of parameters and settings can be adjusted and saved as presets, allowing for flexible customization of the study's style and structure.
 Additionally, PointingDSP offers tools for creating custom maps, a hybrid build featuring a sandbox-like voxel engine supporting everything from custom block types to custom trial lists and the importing of 3D models in real-time.
