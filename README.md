@@ -46,5 +46,4 @@ If any errors with dependencies are spotted at this point, run Assets > Reimport
 # Attribution
 This project is licensed under the Apache License 2.0. 
 
-You are free to use, modify, and distribute this software, but you **must credit me via attribution**. Failure to do so will be a violation of this license. 
-And, while not legally required, I kindly request that said credit be given in a prominent manner (e.g., including the author's name in the project's documentation or credits screen).
+You are free to use, modify, and distribute this software, but credit/attribution is required. 
