@@ -28,7 +28,7 @@ A wide array of parameters and settings can be adjusted and saved as presets, al
 Additionally, PointingDSP offers tools for creating custom maps, a hybrid build featuring a sandbox-like voxel engine supporting everything from custom block types to custom trial lists and the importing of 3D models in real-time.
 
 # Source Code & Unity Asset Store Policy
-In adherence with the Unity Asset Store Terms of Service, which prohibits the redistribution of Store assets, several Package Manager Assets and Asset Store Plugins have not been included in this open-source build. As such, the project does not compile immediately upon download. Perform the following steps if you wish to reconstruct the project:
+In adherence with the Unity Asset Store Terms of Service which prohibits the redistribution of Store assets, several Package Manager Assets and Asset Store Plugins have not been included in this open-source build. As such, the project does not compile immediately upon download. Perform the following steps if you wish to reconstruct the project:
 
 1) Install the following assets:
     - From Window > Asset Store:
